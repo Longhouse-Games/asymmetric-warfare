@@ -13,7 +13,7 @@ Art
 
 Game Design
 -----------
-* John Arquilla
+* Michael Freeman
 
 Thanks
 ======
