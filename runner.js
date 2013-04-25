@@ -20,10 +20,9 @@ global.beforeEach = require('./vendor/jasmine-1.2.0/jasmine').beforeEach;
 //bring in and list all the tests to be run
 requirejs(
     [
-      './spec/lib/building_board.spec',
-      './spec/lib/playing_board.spec',
-      './spec/lib/infochess.spec',
-      './spec/lib/helper.spec'
+      './spec/lib/state_move.spec',
+      './spec/lib/insurgent_move.spec',
+      './spec/lib/position.spec'
     ],
     function() {
   for (var i = 0; i < arguments.length; i++) {
