@@ -22,7 +22,9 @@ requirejs(
     [
       './spec/lib/state_move.spec',
       './spec/lib/insurgent_move.spec',
-      './spec/lib/position.spec'
+      './spec/lib/position.spec',
+      './spec/lib/board.spec',
+      './spec/lib/pieces.spec'
     ],
     function() {
   for (var i = 0; i < arguments.length; i++) {

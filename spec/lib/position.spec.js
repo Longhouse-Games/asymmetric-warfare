@@ -20,6 +20,10 @@ describe("Position", function() {
       }).toThrow("Invalid circle value");
     });
 
+    it("should throw when given a garbage circle", function() {
+      expect(function() { position("jkljkl"); }).toThrow("Invalid circle value");
+    });
+
     describe("outer four circles", function() {
       it("should not permit ranks less than 0", function() {
         expect(function() {
@@ -43,6 +47,24 @@ describe("Position", function() {
       });
     });
 
+    describe("from keys", function() {
+      it("should be constructable from a key", function() {
+        var key = "2,3";
+        expect(position(key).asKey()).toEqual(position(2)(3).asKey());
+      });
+
+      it("should throw when given a garbage key", function() {
+        expect(function() { position("jkljklj"); }).toThrow("Invalid circle value");
+        expect(function() { position("2,jkljklj"); }).toThrow("Invalid rank value");
+      });
+    });
+  });
+
+  describe("as a key", function() {
+    it("should convert to a key suitable for indexes", function() {
+      var pos = position(2)(3);
+      expect(pos.asKey()).toBe("2,3");
+    });
   });
 });
 return {
