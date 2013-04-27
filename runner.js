@@ -21,7 +21,9 @@ global.beforeEach = require('./vendor/jasmine-1.2.0/jasmine').beforeEach;
 requirejs(
     [
       './spec/lib/state_move.spec',
+      './spec/lib/state_turn.spec',
       './spec/lib/insurgent_move.spec',
+      './spec/lib/insurgent_turn.spec',
       './spec/lib/position.spec',
       './spec/lib/board.spec',
       './spec/lib/pieces.spec'
