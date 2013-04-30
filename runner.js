@@ -26,7 +26,8 @@ requirejs(
       './spec/lib/insurgent_turn.spec',
       './spec/lib/position.spec',
       './spec/lib/board.spec',
-      './spec/lib/pieces.spec'
+      './spec/lib/pieces.spec',
+      './spec/lib/infowar.spec'
     ],
     function() {
   for (var i = 0; i < arguments.length; i++) {

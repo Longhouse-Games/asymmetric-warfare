@@ -26,7 +26,7 @@ describe("board", function() {
       var piece = InsurgentPiece();
       var position = Position(3)(3);
       board.addPiece(piece, position);
-      expect(board.getPieces()[position.asKey()][0]).toBe(piece);
+      expect(board.getPiecesAt(position)[0]).toBe(piece);
     });
 
     it("should be able to store multiple different pieces on the same square", function() {
@@ -37,7 +37,7 @@ describe("board", function() {
       board.addPiece(piece1, position);
       board.addPiece(piece2, position);
       board.addPiece(piece3, position);
-      var pieces = board.getPieces()[position.asKey()];
+      var pieces = board.getPiecesAt(position);
       expect(pieces.length).toBe(3);
       expect(pieces[0]).toBe(piece1);
       expect(pieces[1]).toBe(piece2);
@@ -54,30 +54,68 @@ describe("board", function() {
     });
     it("should remove the piece", function() {
       board.removePiece(piece, position);
-      expect(board.getPieces()[position.asKey()]).toBe(undefined);
+      expect(board.getPiecesAt(position)).toBe(undefined);
+    });
+    it("should remove pieces that are logically the same", function() {
+      piece = InsurgentPiece();
+      board.removePiece(piece, position);
+      expect(board.getPiecesAt(position)).toBe(undefined);
     });
     it("should not remove other pieces", function() {
       var otherPiece = StatePiece();
       var otherPos = Position(3)(4);
       board.addPiece(otherPiece, otherPos);
       board.removePiece(piece, position);
-      expect(board.getPieces()[otherPos.asKey()][0]).toBe(otherPiece);
+      expect(board.getPiecesAt(otherPos)[0]).toBe(otherPiece);
     });
     it("should not remove other pieces on the same space", function() {
       var otherPiece = StatePiece();
       var otherPos = Position(3)(3);
       board.addPiece(otherPiece, otherPos);
       board.removePiece(piece, position);
-      expect(board.getPieces()[otherPos.asKey()][0]).toBe(otherPiece);
+      expect(board.getPiecesAt(otherPos)[0]).toBe(otherPiece);
     });
     it("should permit removing and then re-adding", function() {
       board.removePiece(piece, position);
       board.addPiece(piece, position);
-      expect(board.getPieces()[position.asKey()][0]).toBe(piece);
+      expect(board.getPiecesAt(position)[0]).toBe(piece);
     });
     it("should throw when removing a non-existant piece", function() {
       var otherPos = Position(3)(4);
       expect(function() { board.removePiece(piece, otherPos); }).toThrow("Piece not found at '3,4'");
+    });
+  });
+
+  describe("getInsurgentPiecesAt", function() {
+    one_insurgent = Position(0)(0);
+    two_insurgents = Position(1)(0);
+    one_of_each = Position(2)(0);
+
+    beforeEach(function() {
+      one_insurgent = Position(0)(0);
+      two_insurgents = Position(1)(0);
+      one_of_each = Position(2)(0);
+      board.addPiece(InsurgentPiece(), one_insurgent);
+      board.addPiece(InsurgentPiece(), two_insurgents);
+      board.addPiece(InsurgentPiece(), two_insurgents);
+      board.addPiece(InsurgentPiece(), one_of_each);
+      board.addPiece(StatePiece(), one_of_each);
+    });
+    it("should return solo insurgents", function() {
+      var pieces = board.getInsurgentPiecesAt(one_insurgent);
+      expect(pieces.length).toBe(1);
+      expect(pieces[0].type()).toBe(h.Pieces.INSURGENT_TYPE);
+    });
+    it("should return multiple insurgents", function() {
+      var pieces = board.getInsurgentPiecesAt(two_insurgents);
+      expect(pieces.length).toBe(2);
+      expect(pieces[0].type()).toBe(h.Pieces.INSURGENT_TYPE);
+      expect(pieces[1].type()).toBe(h.Pieces.INSURGENT_TYPE);
+    });
+    it("should not return state pieces", function() {
+      var pieces = board.getInsurgentPiecesAt(one_of_each);
+      expect(pieces.length).toBe(1);
+      expect(pieces[0].type()).toBe(h.Pieces.INSURGENT_TYPE);
     });
   });
 });

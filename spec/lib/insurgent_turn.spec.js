@@ -8,6 +8,9 @@ describe("insurgent turn", function() {
   beforeEach(function() {
     turn = InsurgentTurn();
   });
+  it("should identify as insurgent", function() {
+    expect(turn.id()).toBe("INSURGENT");
+  });
   describe("with no previous actions", function() {
     it("should list MOVE and GROW as valid actions", function() {
       var actions = turn.validActions();
@@ -17,6 +20,9 @@ describe("insurgent turn", function() {
     });
     it("should give 2 remaining movement points", function() {
       expect(turn.movementPoints()).toBe(2);
+    });
+    it("should mark the turn as not complete", function() {
+      expect(turn.isComplete()).toBe(false);
     });
   });
   describe("with a previous 1-point move", function() {
@@ -32,6 +38,9 @@ describe("insurgent turn", function() {
     it("should give 1 remaining movement point", function() {
       expect(turn.movementPoints()).toBe(1);
     });
+    it("should mark the turn as not complete", function() {
+      expect(turn.isComplete()).toBe(false);
+    });
   });
   describe("with a previous 2-point move", function() {
     beforeEach(function() {
@@ -45,6 +54,9 @@ describe("insurgent turn", function() {
     });
     it("should give 0 remaining movement points", function() {
       expect(turn.movementPoints()).toBe(0);
+    });
+    it("should mark the turn as complete", function() {
+      expect(turn.isComplete()).toBe(true);
     });
     it("should throw if another move is tried", function() {
       move = InsurgentMove(Position(0)(2))(Position(0)(4));
