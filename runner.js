@@ -27,7 +27,8 @@ requirejs(
       './spec/lib/position.spec',
       './spec/lib/board.spec',
       './spec/lib/pieces.spec',
-      './spec/lib/infowar.spec'
+      './spec/lib/infowar.spec',
+      './spec/lib/raven/bridge.spec'
     ],
     function() {
   for (var i = 0; i < arguments.length; i++) {
