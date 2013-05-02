@@ -18,88 +18,6 @@
     <script data-main="lib/client/main" src="js/require.js"></script>
   </head>
   <body>
-    <input type="hidden" id="username" value="player" />
-    <div id="flashes">
-      <div id="psyop" class="flash">
-        <div class="main">Psionic attack</div>
-        <div class="success">
-          <div class="attacker message">
-            Success!
-          </div>
-          <div class="defender message"></div>
-        </div>
-        <div class="defended">
-          <div class="attacker message">
-            DEFENDED!
-          </div>
-          <div class="defender message"></div>
-        </div>
-        <div class="reinforced">
-          <div class="attacker message">
-            Success!
-          </div>
-          <div class="defender message">
-            REINFORCED
-          </div>
-        </div>
-        <div class="successful_feint">
-          <div class="attacker message">
-            Success!
-          </div>
-          <div class="defender message">
-            Feint! No effect!
-          </div>
-        </div>
-        <div class="ineffective_feint">
-          <div class="attacker message">
-            No effect!
-          </div>
-          <div class="defender message"></div>
-        </div>
-      </div>
-      <div id="ew" class="flash">
-        <div class="main">Electronic Warfare</div>
-        <div class="success">
-          <div class="attacker message">
-            Success!
-          </div>
-          <div class="defender message">
-            Communications jammed
-          </div>
-        </div>
-        <div class="defended">
-          <div class="attacker message">
-            DEFENDED!
-          </div>
-          <div class="defender message">
-            No effect!
-          </div>
-        </div>
-        <div class="reinforced">
-          <div class="attacker message">
-            Success!
-          </div>
-          <div class="defender message">
-            REINFORCED!<br>
-            Communications jammed!
-          </div>
-        </div>
-        <div class="successful_feint">
-          <div class="attacker message">
-            Success!
-          </div>
-          <div class="defender message">
-            Feint! No effect!
-          </div>
-        </div>
-        <div class="ineffective_feint">
-          <div class="attacker message">
-            No effect!
-          </div>
-          <div class="defender message"></div>
-        </div>
-      </div>
-    </div>
     <div id="settings_dialog" class="dialog" title="Settings">
       <div class="dialog_content_wrapper">
         <div id="settings_content" class="dialog_content">
@@ -129,103 +47,16 @@
         </div>
       </div>
     </div>
-    <div id="iw_defense_dialog" class="dialog">
-      <div class="dialog_content_wrapper">
-        <div id="iw_defense_content" class="dialog_content">
-          <span id="psyop_title" class="iw_text title">Psyop Attack!</span>
-          <span id="ew_title" class="iw_text title">Electronic Warfare Attack!</span>
-          <div class="hr"></div>
-          <p id="psyop_text" class="iw_text">Your opponent has issued a psionic attack! If you
-          fail to defend against it, you will lose the pawn furthest from your
-          King. If you have no pawns, you will lose the piece furthest from
-          your King. If you have no other pieces, you will lose your King.</p>
-          <p id="ew_text" class="iw_text">Your opponent is using electronic warfare! If you
-          fail to defend against it, you will not be able to move a piece on
-          your next turn.</p>
-          <ul>
-            <li id="defend">Defend: Costs <span id="cost">{{cost}}</span> points</li>
-            <li id="ignore">Ignore</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div id="pawn_upgrade_dialog" class="dialog">
-      <div class="dialog_content_wrapper">
-        <div class="dialog_content">
-          <span class="title">Pawn Upgrade</span>
-          <div class="hr"></div>
-          <p>
-            Your pawn can be upgraded. Choose its new type:
-          </p>
-          <ul id="upgrade_list">
-          </ul>
-        </div>
-      </div>
-    </div>
     <audio src="sounds/your_turn.wav" preload="auto" id="your_turn">
     </audio>
     <div id="table_area">
       <div id="board" class="board">
         <div id="pieces" class="board_overlay"></div>
-        <div id="pawn_capture" title="See if any pawns can capture an invisible piece. If they can, that move must be taken.">
-          <img src="../images/transparent_pixel.gif" class="vertical-aligner">
-          Pawn Capture
-        </div>
       </div>
       <div id="side_area">
         <div id="settings_overlay">
           <div id="settings" class="setting_button"></div>
           <div id="volume_control" class="toggle_sound setting_button volume_control_on"></div>
-        </div>
-        <div id="army_selector" class="side_selector">
-          <div id="points_indicator">
-          </div>
-          <div id="piece_selectors">
-          </div>
-          <div id="reset" class="button" title="Clears the board of placed pieces">
-            <img src="../images/transparent_pixel.gif" class="vertical-aligner">
-            Reset
-          </div>
-          <div id="commit" class="button" title="Finalises your army">
-            <img src="../images/transparent_pixel.gif" class="vertical-aligner">
-            Commit
-          </div>
-        </div>
-        <div id="action_selector" class="side_selector">
-          <div id="points_indicator">
-          </div>
-          <div id="ew_actions" class="actions_container" title="Causes your opponent to skip their physical move. They may still make an IW attack.">
-            <div id="ew_main" class="iw_main"></div>
-            <div id="ew_normal" class="strength first">
-              <span id="value"></span>
-              <img src="../images/transparent_pixel.gif" class="vertical-aligner">
-            </div>
-            <div id="ew_reinforced" class="strength second" title="Reinforced attacks are indefensible.">
-              <span id="value"></span>
-              <img src="../images/transparent_pixel.gif" class="vertical-aligner">
-            </div>
-            <div id="ew_feint" class="strength third disabled" title="Attack has no effect if it is not defended against. Only possible when attack cost is 2.">
-              <span id="value"></span>
-              <img src="../images/transparent_pixel.gif" class="vertical-aligner">
-            </div>
-          </div>
-          <div id="psyop_actions" class="actions_container" title="Removes pawn furthest from their king. Removes furthest piece if they have no pawns. Removes the king if they have no other pieces.">
-            <div id="psyop_main" class="iw_main"></div>
-            <div id="psyop_normal" class="strength first">
-              <span id="value"></span>
-              <img src="../images/transparent_pixel.gif" class="vertical-aligner">
-            </div>
-            <div id="psyop_reinforced" class="strength second" title="Reinforced attacks are indefinsible.">
-              <span id="value"></span>
-              <img src="../images/transparent_pixel.gif" class="vertical-aligner">
-            </div>
-            <div id="psyop_feint" class="strength third disabled" title="Attack has no effect if it is not defended against. Only possible when attack cost is 2.">
-              <span id="value"></span>
-              <img src="../images/transparent_pixel.gif" class="vertical-aligner">
-            </div>
-          </div>
-          <div id="end_turn">
-          </div>
         </div>
         <div id="chat">
           <div id="chat_messages">
