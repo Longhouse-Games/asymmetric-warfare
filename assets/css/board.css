@@ -298,6 +298,202 @@ ul li.separator {
   height: 100%;
   width: 100%;
 }
+.space {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+}
+.space.circle0 {
+  background-color: #F00;
+}
+.space.circle1 {
+  background-color: #090;
+}
+.space.circle2 {
+  background-color: #00F;
+}
+.space.circle3 {
+  background-color: #099;
+}
+.space.circle4 {
+  background-color: #F0F;
+}
+.circle0.rank0,
+.circle0.rank1,
+.circle0.rank2,
+.circle0.rank3 {
+  top: 0%;
+}
+.circle0.rank6,
+.circle0.rank7,
+.circle0.rank8,
+.circle0.rank9 {
+  bottom: 0%;
+}
+.circle0.rank0,
+.circle0.rank9,
+.circle0.rank10,
+.circle0.rank11 {
+  left: 0%;
+}
+.circle0.rank1,
+.circle0.rank8 {
+  left: 33%;
+}
+.circle0.rank2,
+.circle0.rank7 {
+  left: 66%;
+}
+.circle0.rank3,
+.circle0.rank4,
+.circle0.rank5,
+.circle0.rank6 {
+  left: 100%;
+}
+.circle0.rank4,
+.circle0.rank11 {
+  top: 33%;
+}
+.circle0.rank5,
+.circle0.rank10 {
+  top: 66%;
+}
+
+.circle1.rank0,
+.circle1.rank1,
+.circle1.rank2 {
+  top: 10%;
+}
+.circle1.rank6,
+.circle1.rank7,
+.circle1.rank8 {
+  bottom: 10%;
+}
+.circle1.rank3,
+.circle1.rank11 {
+  top: 27%;
+}
+.circle1.rank4,
+.circle1.rank10 {
+  top: 50%;
+}
+.circle1.rank5,
+.circle1.rank9 {
+  top: 73%;
+}
+.circle1.rank9,
+.circle1.rank10,
+.circle1.rank11 {
+  left: 10%;
+}
+.circle1.rank0,
+.circle1.rank8 {
+  left: 27%;
+}
+.circle1.rank1,
+.circle1.rank7 {
+  left: 50%;
+}
+.circle1.rank2,
+.circle1.rank6 {
+  left: 73%;
+}
+.circle1.rank3,
+.circle1.rank4,
+.circle1.rank5 {
+  left: 90%;
+}
+
+.circle2.rank0,
+.circle2.rank1,
+.circle2.rank2,
+.circle2.rank3 {
+  top: 20%;
+}
+.circle2.rank6,
+.circle2.rank7,
+.circle2.rank8,
+.circle2.rank9 {
+  bottom: 20%;
+}
+.circle2.rank0,
+.circle2.rank9,
+.circle2.rank10,
+.circle2.rank11 {
+  left: 20%;
+}
+.circle2.rank1,
+.circle2.rank8 {
+  left: 40%;
+}
+.circle2.rank2,
+.circle2.rank7 {
+  left: 60%;
+}
+.circle2.rank3,
+.circle2.rank4,
+.circle2.rank5,
+.circle2.rank6 {
+  left: 80%;
+}
+.circle2.rank4,
+.circle2.rank11 {
+  top: 33%;
+}
+.circle2.rank5,
+.circle2.rank10 {
+  top: 60%;
+}
+
+.circle3.rank0,
+.circle3.rank1,
+.circle3.rank2 {
+  top: 30%;
+}
+.circle3.rank6,
+.circle3.rank7,
+.circle3.rank8 {
+  bottom: 28%;
+}
+.circle3.rank3,
+.circle3.rank11 {
+  top: 37%;
+}
+.circle3.rank4,
+.circle3.rank10 {
+  top: 50%;
+}
+.circle3.rank5,
+.circle3.rank9 {
+  top: 61%;
+}
+.circle3.rank9,
+.circle3.rank10,
+.circle3.rank11 {
+  left: 30%;
+}
+.circle3.rank0,
+.circle3.rank8 {
+  left: 37%;
+}
+.circle3.rank1,
+.circle3.rank7 {
+  left: 50%;
+}
+.circle3.rank2,
+.circle3.rank6 {
+  left: 63%;
+}
+.circle3.rank3,
+.circle3.rank4,
+.circle3.rank5 {
+  left: 70%;
+}
+
+.circle4.rank0 {
+  top: 50%;
+  left: 50%;
+}
 
 .selected {
   -webkit-animation: myanim 1s ease-in-out infinite; /* Saf5, Chrome */
