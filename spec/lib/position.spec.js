@@ -134,6 +134,40 @@ describe("Position", function() {
       expect(position.decrementRank(0)).toBe(11);
     });
   });
+
+  describe("distance", function() {
+    describe("within the same circle", function() {
+      it("should return the number of spaces between the two", function() {
+        expect(position(0)(0).distanceTo(position(0)(1))).toBe(1);
+        expect(position(0)(0).distanceTo(position(0)(2))).toBe(2);
+        expect(position(0)(2).distanceTo(position(0)(5))).toBe(3);
+      });
+      it("should use the shortest distance across rank boundaries", function() {
+        expect(position(0)(0).distanceTo(position(0)(11))).toBe(1);
+        expect(position(0)(3).distanceTo(position(0)(11))).toBe(4);
+      });
+    });
+
+    describe("across circle boundaries", function() {
+      it("should be 2", function() {
+        expect(position(0)(0).distanceTo(position(1)(0))).toBe(2);
+        expect(position(3)(0).distanceTo(position(4)(0))).toBe(2);
+      });
+      it("should be 2 even when changing rank", function() {
+        expect(position(0)(0).distanceTo(position(1)(1))).toBe(2);
+        expect(position(1)(1).distanceTo(position(0)(0))).toBe(2);
+        expect(position(3)(0).distanceTo(position(2)(1))).toBe(2);
+      });
+    });
+
+    describe("across multiple circle boundaries", function() {
+      it("should not be supported", function() {
+        expect(function() {
+          position(3)(0).distanceTo(position(1)(0));
+        }).toThrow("Distance across multiple circles is not supported");
+      });
+    });
+  });
 });
 return {
   name: "position_spec"
