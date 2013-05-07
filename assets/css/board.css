@@ -303,6 +303,18 @@ ul li.separator {
   width: 40px;
   height: 40px;
 }
+.space:hover {
+  outline: 3px solid #0FF;
+}
+.space.selected {
+  outline: 3px solid #0AA;
+}
+.space.short_move {
+  outline: 3px solid #0F0;
+}
+.space.long_move {
+  outline: 3px solid #F00;
+}
 .space.circle0 {
   background-color: #F00;
 }
