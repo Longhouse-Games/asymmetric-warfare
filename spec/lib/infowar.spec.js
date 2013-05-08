@@ -36,6 +36,14 @@ describe("infowar", function() {
         expect(pieces[i].type()).toBe(Pieces.STATE_TYPE);
       }
     });
+    it("should record the initial states pieces in the history log", function() {
+      var history = infowar.history();
+      expect(history.length).toBe(5);
+      for (var i = 0; i < 5; i++) {
+        var move = history[i];
+        expect(move.player()).toBe(Infowar.STATE);
+      }
+    });
     describe("insurgent placement", function() {
       it("should indicate that five insurgents can be placed", function() {
         expect(infowar.initialInsurgents()).toBe(5);
@@ -84,6 +92,19 @@ describe("infowar", function() {
         initInsurgents(infowar);
         expect(infowar.currentTurn()).toBe(Infowar.INSURGENT);
       });
+      it("should add entries into the history log", function() {
+        for (var i = 0; i < 5; i++) {
+          infowar.addInsurgent(Position(0)(i));
+        }
+        var history = infowar.history();
+        expect(history.length).toBe(10);
+        for (var i = 0; i < 5; i++) {
+          var entry = history[i+5];
+          expect(entry.player()).toBe(Infowar.INSURGENT);
+          expect(entry.position()).toBeDefined();
+          expect(entry.position().asKey()).toBe(Position(0)(i).asKey());
+        }
+      });
     });
   });
   describe("insurgent turn", function() {
@@ -116,6 +137,19 @@ describe("infowar", function() {
       expect(infowar.getPiecesAt(dest).length).toBe(1);
       expect(infowar.currentTurn()).toBe(Infowar.INSURGENT);
     });
+    it("should add an entry in the log", function() {
+      var src = Position(0)(2);
+      var dest = Position(0)(4);
+      infowar.insurgentMove(src, dest);
+      var history = infowar.history();
+      expect(history.length).toBe(11);
+      var entry = history[10];
+      expect(entry).toBeDefined();
+      expect(entry.player()).toBe(Infowar.INSURGENT);
+      expect(entry.type()).toBe(h.C.MOVE);
+      expect(entry.move().src.asKey()).toBe(src.asKey());
+      expect(entry.move().dest.asKey()).toBe(dest.asKey());
+    });
   });
   describe("state turn", function() {
     beforeEach(function() {
@@ -137,6 +171,19 @@ describe("infowar", function() {
       expect(infowar.getPiecesAt(src).length).toBe(4);
       expect(infowar.getPiecesAt(dest).length).toBe(1);
       expect(infowar.currentTurn()).toBe(Infowar.INSURGENT);
+    });
+    it("should add an entry in the log", function() {
+      var src = Position(4)(0);
+      var dest = Position(3)(0);
+      infowar.stateMove(src, dest);
+      var history = infowar.history();
+      expect(history.length).toBe(12);
+      var entry = history[11];
+      expect(entry).toBeDefined();
+      expect(entry.player()).toBe(Infowar.STATE);
+      expect(entry.type()).toBe(h.C.MOVE);
+      expect(entry.move().src.asKey()).toBe(src.asKey());
+      expect(entry.move().dest.asKey()).toBe(dest.asKey());
     });
   });
   describe("insurgents hold four adjacent spaces in the inner ring", function() {
