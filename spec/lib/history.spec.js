@@ -8,6 +8,7 @@ describe("History", function() {
     it("should create", function() {
       var entry = History.Placement(h.C.STATE, Position(0)(0));
       expect(entry).toBeDefined();
+      expect(entry.type()).toBe(h.C.PLACEMENT);
       expect(entry.player()).toBe(h.C.STATE);
       expect(entry.position()).toBeDefined();
       expect(entry.position().asKey()).toBe(Position(0)(0).asKey());
@@ -20,6 +21,7 @@ describe("History", function() {
       var move = StateMove(src)(dest);
       var entry = History.Move(h.C.STATE, move);
       expect(entry).toBeDefined();
+      expect(entry.type()).toBe(h.C.MOVE);
       expect(entry.player()).toBe(h.C.STATE);
       expect(entry.move()).toBeDefined();
       expect(entry.move().src.asKey()).toBe(src.asKey());
