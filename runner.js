@@ -28,7 +28,7 @@ requirejs(
       './spec/lib/board.spec',
       './spec/lib/pieces.spec',
       './spec/lib/constants.spec',
-      './spec/lib/history_entry.spec',
+      './spec/lib/history.spec',
       './spec/lib/infowar.spec',
       './spec/lib/raven/bridge.spec'
     ],
