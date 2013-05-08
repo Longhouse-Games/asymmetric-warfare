@@ -8,14 +8,12 @@ requirejs.config({
 global.define = require('requirejs');
 
 //make jasmine available globally like it is in the browser
-// global.describe = require('./lib/jasmine-1.1.0.rc1/jasmine').describe;
-// global.it = require('./lib/jasmine-1.1.0.rc1/jasmine').it;
-// global.expect = require('./lib/jasmine-1.1.0.rc1/jasmine').expect;
-global.describe = require('./vendor/jasmine-1.2.0/jasmine').describe;
-global.it = require('./vendor/jasmine-1.2.0/jasmine').it;
-global.expect = require('./vendor/jasmine-1.2.0/jasmine').expect;
-global.beforeEach = require('./vendor/jasmine-1.2.0/jasmine').beforeEach;
-
+jasmine = require('./vendor/jasmine-1.2.0/jasmine');
+global.describe = jasmine.describe;
+global.it = jasmine.it;
+global.expect = jasmine.expect;
+global.beforeEach = jasmine.beforeEach;
+global.spyOn = jasmine.spyOn;
 
 //bring in and list all the tests to be run
 requirejs(
