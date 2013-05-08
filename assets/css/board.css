@@ -371,134 +371,134 @@ ul li.separator {
   top: 66%;
 }
 
-.circle1.rank0,
 .circle1.rank1,
-.circle1.rank2 {
+.circle1.rank2,
+.circle1.rank3 {
   top: 10%;
 }
-.circle1.rank6,
 .circle1.rank7,
-.circle1.rank8 {
+.circle1.rank8,
+.circle1.rank9 {
   bottom: 10%;
 }
-.circle1.rank3,
-.circle1.rank11 {
+.circle1.rank0,
+.circle1.rank4 {
   top: 27%;
 }
-.circle1.rank4,
-.circle1.rank10 {
+.circle1.rank5,
+.circle1.rank11 {
   top: 50%;
 }
-.circle1.rank5,
-.circle1.rank9 {
+.circle1.rank6,
+.circle1.rank10 {
   top: 73%;
 }
-.circle1.rank9,
 .circle1.rank10,
-.circle1.rank11 {
+.circle1.rank11,
+.circle1.rank0 {
   left: 10%;
 }
-.circle1.rank0,
-.circle1.rank8 {
+.circle1.rank1,
+.circle1.rank9 {
   left: 27%;
 }
-.circle1.rank1,
-.circle1.rank7 {
+.circle1.rank2,
+.circle1.rank8 {
   left: 50%;
 }
-.circle1.rank2,
-.circle1.rank6 {
+.circle1.rank3,
+.circle1.rank7 {
   left: 73%;
 }
-.circle1.rank3,
 .circle1.rank4,
-.circle1.rank5 {
+.circle1.rank5,
+.circle1.rank6 {
   left: 90%;
 }
 
-.circle2.rank0,
 .circle2.rank1,
 .circle2.rank2,
-.circle2.rank3 {
+.circle2.rank3,
+.circle2.rank4 {
   top: 20%;
 }
-.circle2.rank6,
 .circle2.rank7,
 .circle2.rank8,
-.circle2.rank9 {
+.circle2.rank9,
+.circle2.rank10 {
   bottom: 20%;
 }
-.circle2.rank0,
-.circle2.rank9,
+.circle2.rank1,
 .circle2.rank10,
-.circle2.rank11 {
+.circle2.rank11,
+.circle2.rank0 {
   left: 20%;
 }
-.circle2.rank1,
-.circle2.rank8 {
+.circle2.rank2,
+.circle2.rank9 {
   left: 40%;
 }
-.circle2.rank2,
-.circle2.rank7 {
+.circle2.rank3,
+.circle2.rank8 {
   left: 60%;
 }
-.circle2.rank3,
 .circle2.rank4,
 .circle2.rank5,
-.circle2.rank6 {
+.circle2.rank6,
+.circle2.rank7 {
   left: 80%;
 }
-.circle2.rank4,
-.circle2.rank11 {
+.circle2.rank5,
+.circle2.rank0 {
   top: 33%;
 }
-.circle2.rank5,
-.circle2.rank10 {
+.circle2.rank6,
+.circle2.rank11 {
   top: 60%;
 }
 
-.circle3.rank0,
-.circle3.rank1,
-.circle3.rank2 {
+.circle3.rank2,
+.circle3.rank3,
+.circle3.rank4 {
   top: 30%;
 }
-.circle3.rank6,
-.circle3.rank7,
-.circle3.rank8 {
+.circle3.rank8,
+.circle3.rank9,
+.circle3.rank10 {
   bottom: 28%;
 }
-.circle3.rank3,
-.circle3.rank11 {
+.circle3.rank5,
+.circle3.rank1 {
   top: 37%;
 }
-.circle3.rank4,
-.circle3.rank10 {
+.circle3.rank6,
+.circle3.rank0 {
   top: 50%;
 }
-.circle3.rank5,
-.circle3.rank9 {
+.circle3.rank7,
+.circle3.rank11 {
   top: 61%;
 }
-.circle3.rank9,
-.circle3.rank10,
-.circle3.rank11 {
+.circle3.rank11,
+.circle3.rank0,
+.circle3.rank1 {
   left: 30%;
 }
-.circle3.rank0,
-.circle3.rank8 {
+.circle3.rank2,
+.circle3.rank10 {
   left: 37%;
 }
-.circle3.rank1,
-.circle3.rank7 {
+.circle3.rank3,
+.circle3.rank9 {
   left: 50%;
 }
-.circle3.rank2,
-.circle3.rank6 {
+.circle3.rank4,
+.circle3.rank8 {
   left: 63%;
 }
-.circle3.rank3,
-.circle3.rank4,
-.circle3.rank5 {
+.circle3.rank5,
+.circle3.rank6,
+.circle3.rank7 {
   left: 70%;
 }
 
