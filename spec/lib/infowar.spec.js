@@ -3,6 +3,7 @@ var Position = h.Position;
 var Pieces = h.Pieces;
 var InsurgentMove = h.InsurgentMove;
 var StateMove = h.StateMove;
+var History = h.History;
 
 var initInsurgents = function(infowar) {
   var positions = [
@@ -114,6 +115,85 @@ describe("infowar", function() {
       });
     });
   });
+
+  describe("creating from history", function() {
+    var history;
+    beforeEach(function() {
+      history = [];
+      for (var i = 0; i < 5; i++) {
+        history.push(History.Placement(Infowar.STATE, Position(h.C.CAPITAL)(0)));
+      }
+      infowar = Infowar(history);
+    });
+    describe("with minimal history", function() {
+      it("should be at the same state after initial creation", function() {
+        expect(infowar.getPiecesAt(Position(h.C.CAPITAL)(0))).toBeDefined();
+        expect(infowar.getPiecesAt(Position(h.C.CAPITAL)(0)).length).toEqual(5);
+      });
+      it("should use the same history", function() {
+        expect(infowar.history().length).toBe(history.length);
+        for (var i = 0; i < history.length; i++) {
+          expect(infowar.history()[i].type()).toEqual(history[i].type());
+          expect(infowar.history()[i].player()).toEqual(history[i].player());
+          expect(infowar.history()[i].position().asKey()).toEqual(history[i].position().asKey());
+        }
+      });
+    });
+    describe("with insurgents placed", function() {
+      beforeEach(function() {
+        for (var i = 0; i < 5; i++) {
+          history.push(History.Placement(Infowar.INSURGENT, Position(0)(0)));
+        }
+      });
+      it("should be at the same state after placing insurgents", function() {
+        var infowar = Infowar(history);
+        expect(infowar.getPiecesAt(Position(0)(0))).toBeDefined();
+        expect(infowar.getPiecesAt(Position(0)(0)).length).toEqual(5);
+      });
+    });
+    describe("with some moves", function() {
+      beforeEach(function() {
+        for (var i = 0; i < 5; i++) {
+          history.push(History.Placement(Infowar.INSURGENT, Position(0)(0)));
+        }
+        history.push(History.Move(Infowar.INSURGENT, InsurgentMove(Position(0)(0))(Position(1)(0))));
+        history.push(History.Move(Infowar.STATE, StateMove(Position(h.C.CAPITAL)(0))(Position(3)(0))));
+        history.push(History.Move(Infowar.INSURGENT, InsurgentMove(Position(1)(0))(Position(2)(0))));
+
+        infowar = Infowar(history);
+      });
+      it("should be at the same state", function() {
+        expect(infowar.currentTurn()).toBe(Infowar.STATE);
+        expect(infowar.getPiecesAt(Position(1)(0))).toBeUndefined();
+        expect(infowar.getPiecesAt(Position(2)(0))).toBeDefined();
+        expect(infowar.getPiecesAt(Position(2)(0))[0].type()).toBe(Pieces.INSURGENT_TYPE);
+        expect(infowar.getPiecesAt(Position(3)(0))).toBeDefined();
+        expect(infowar.getPiecesAt(Position(3)(0))[0].type()).toBe(Pieces.STATE_TYPE);
+        expect(infowar.getPiecesAt(Position(0)(0)).length).toBe(4);
+        expect(infowar.getPiecesAt(Position(h.C.CAPITAL)(0)).length).toBe(4);
+      });
+    });
+    describe("with an invalid history", function() {
+      beforeEach(function() {
+        for (var i = 0; i < 5; i++) {
+          history.push(History.Placement(Infowar.INSURGENT, Position(0)(0)));
+        }
+      });
+      it("should not permit illegal moves", function() {
+        history.push(History.Move(Infowar.STATE, StateMove(Position(h.C.CAPITAL)(0), Position(3)(0))));
+        expect(function() {
+          infowar = Infowar(history);
+        }).toThrow("It's not your turn!");
+      });
+      it("should not permit arbitrary placement", function() {
+        history.push(History.Placement(Infowar.INSURGENT, Position(3)(0)));
+        expect(function() {
+          infowar = Infowar(history);
+        }).toThrow("Invalid placement!");
+      });
+    });
+  });
+
   describe("insurgent turn", function() {
     beforeEach(function() {
       infowar = Infowar();
