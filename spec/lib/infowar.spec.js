@@ -77,6 +77,13 @@ describe("infowar", function() {
           expect(pieces[0].type()).toBe(Pieces.INSURGENT_TYPE);
         }
       });
+      it("should not permit insurgents in other rings", function() {
+        for (var i = 1; i < h.C.NUM_CIRCLES; i++) {
+          expect(function() {
+            infowar.addInsurgent(Position(i)(0));
+          }).toThrow("Invalid placement!");
+        }
+      });
       it("should permit insurgents to all start on the same spot", function() {
         var pos = Position(0)(0);
         for (var i = 0; i < 5; i++) {
