@@ -27,6 +27,12 @@
         <span class="text">{{text}}</span>
       </div>
     </script>
+    <script id="status" type="text/html">
+      <div class="dashboard_section">
+        <img src="images/transparent_pixel.gif" class="vertical-aligner">
+        <span id="status">{{text}}</span>
+      </div>
+    </script>
   </head>
   <body>
     <div id="settings_dialog" class="dialog" title="Settings">
@@ -78,10 +84,6 @@
         </div>
       </div>
       <div id="dashboard" class="overlay_flash">
-        <div class="dashboard_section">
-          <img src="images/transparent_pixel.gif" class="vertical-aligner">
-          <span id="status">Connecting to server...</span>
-        </div>
       </div>
     </div>
   </body>

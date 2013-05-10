@@ -65,16 +65,16 @@ body {
 #dashboard {
   position: absolute;
   z-index: 10002;
-  left: 210px;
+  left: 160px;
   top: 736px;
-  width: 316px;
+  width: 416px;
   height: 44px;
   border-radius: 15px;
 }
 .dashboard_section {
-  width: 315px;
+  width: 415px;
   height: 44px;
-  color: rgb(26, 47, 36);
+  color: #FFF;
   text-align: center;
   font-size: 22px;
   font-weight: bold;
