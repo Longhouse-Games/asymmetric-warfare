@@ -24,17 +24,9 @@ describe("Ravenbridge", function() {
       expect(metadata.roles[1].name).toBe('The State');
     });
   });
-  describe("creation", function() {
-    it("should be able to create infowar games", function() {
-      var game = Ravenbridge().create();
-      expect(game).toBeDefined();
-      expect(game.initialInsurgents()).toBe(Infowar.INITIAL_INSURGENTS);
-    });
-  });
   describe("connecting a player", function() {
     it("should send the game history", function() {
       var bridge = Ravenbridge();
-      bridge.create();
       var data;
       var socket = {
         emit: function(message, _data) {
