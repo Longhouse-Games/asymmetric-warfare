@@ -40,7 +40,7 @@ describe("Ravenbridge", function() {
       expect(data.history).toBeDefined();
       expect(data.history.length).toBe(5);
       for (var i = 0; i < 5; i++) {
-        var entry = JSON.parse(data.history[i]);
+        var entry = data.history[i];
         expect(entry.type).toBe(h.C.PLACEMENT);
         expect(entry.player).toBe(h.C.STATE);
         expect(entry.position).toBe(Position(h.C.CAPITAL)(0).asKey());

@@ -4,30 +4,30 @@ var Position = h.Position;
 var StateMove = h.StateMove;
 
 describe("History", function() {
-  describe("fromJSON", function() {
-    it("should throw when given invalid json", function() {
+  describe("fromDTO", function() {
+    it("should throw when given not an object", function() {
       expect(function() {
-        History.fromJSON("{,fdjklj");
+        History.fromDTO("{,fdjklj");
       }).toThrow();
     });
     it("should throw when given an invalid type", function() {
       expect(function() {
-        History.fromJSON('{"player":"STATE", "type":"PANCAKE"}');
+        History.fromDTO({player: h.C.STATE, type:"PANCAKE"});
       }).toThrow("Invalid entry type: PANCAKE");
     });
     it("should throw when giving an invalid player", function() {
       expect(function() {
-        History.fromJSON('{"player":"BORK", "type":"PLACEMENT"}');
+        History.fromDTO({player:"BORK", type:h.C.PLACEMENT});
       }).toThrow("Invalid player: BORK");
     });
     it("should throw when missing type", function() {
       expect(function() {
-        History.fromJSON('{"player":"STATE"}');
+        History.fromDTO({player:h.C.STATE});
       }).toThrow("Invalid entry type: undefined");
     });
     it("should throw when missing player", function() {
       expect(function() {
-        History.fromJSON('{"type":"PLACEMENT"}');
+        History.fromDTO({type:h.C.PLACEMENT});
       }).toThrow("Invalid player: undefined");
     });
   });
@@ -44,16 +44,19 @@ describe("History", function() {
     });
     it("should serialise", function() {
       var entry = History.Placement(h.C.STATE, Position(0)(0));
-      var json = entry.toJSON();
-      var obj = JSON.parse(json);
-      expect(obj).toBeDefined();
-      expect(obj.type).toBe(h.C.PLACEMENT);
-      expect(obj.player).toBe(h.C.STATE);
-      expect(obj.position).toBe(Position(0)(0).asKey());
+      var dto = entry.toDTO();
+      expect(dto).toBeDefined();
+      expect(dto.type).toBe(h.C.PLACEMENT);
+      expect(dto.player).toBe(h.C.STATE);
+      expect(dto.position).toBe(Position(0)(0).asKey());
     });
     it("should deserialise", function() {
-      var json = '{"type":"PLACEMENT","position":"0,0","player":"STATE"}';
-      var entry = History.fromJSON(json);
+      var dto = {
+        type: h.C.PLACEMENT,
+        position: Position(0)(0).asKey(),
+        player: h.C.STATE
+      };
+      var entry = History.fromDTO(dto);
       expect(entry).toBeDefined();
       expect(entry.type()).toBe(h.C.PLACEMENT);
       expect(entry.player()).toBe(h.C.STATE);
@@ -105,17 +108,21 @@ describe("History", function() {
     });
     it("should serialise", function() {
       var entry = History.Move(h.C.STATE, move);
-      var json = entry.toJSON();
-      var obj = JSON.parse(json);
-      expect(obj).toBeDefined();
-      expect(obj.type).toBe(h.C.MOVE);
-      expect(obj.player).toBe(h.C.STATE);
-      expect(obj.src).toBe(src.asKey());
-      expect(obj.dest).toBe(dest.asKey());
+      var dto = entry.toDTO();
+      expect(dto).toBeDefined();
+      expect(dto.type).toBe(h.C.MOVE);
+      expect(dto.player).toBe(h.C.STATE);
+      expect(dto.src).toBe(src.asKey());
+      expect(dto.dest).toBe(dest.asKey());
     });
     it("should deserialise", function() {
-      var json = '{"type":"MOVE","player":"STATE","src":"4,0","dest":"3,0"}';
-      var entry = History.fromJSON(json);
+      var dto = {
+        type: h.C.MOVE,
+        player: h.C.STATE,
+        src: Position(h.C.CAPITAL)(0).asKey(),
+        dest: Position(3)(0).asKey()
+      };
+      var entry = History.fromDTO(dto);
       expect(entry).toBeDefined();
       expect(entry.type()).toBe(h.C.MOVE);
       expect(entry.player()).toBe(h.C.STATE);
