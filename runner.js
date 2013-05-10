@@ -14,6 +14,7 @@ global.it = jasmine.it;
 global.expect = jasmine.expect;
 global.beforeEach = jasmine.beforeEach;
 global.spyOn = jasmine.spyOn;
+global.jasmine = jasmine.jasmine;
 
 //bring in and list all the tests to be run
 requirejs(
