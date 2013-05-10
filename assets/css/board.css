@@ -533,3 +533,12 @@ ul li.separator {
   0%, 100% { transform: scale3d(1, 1, 1); zoom: 1; }
   50%      { transform: scale3d(1.2, 1.2, 1); zoom: 1; }
 }
+
+#history {
+  position: absolute;
+  top: 10px;
+  left: 40px;
+  width: 100%;
+}
+.history_entry {
+}
