@@ -306,6 +306,9 @@ ul li.separator {
 .space:hover {
   outline: 3px solid #0FF;
 }
+.space .pieces {
+  font-size: 12px;
+}
 .space.selected {
   outline: 3px solid #0AA;
 }
