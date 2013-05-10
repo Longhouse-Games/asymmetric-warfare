@@ -30,6 +30,9 @@ describe("infowar", function() {
     it("should be no one's turn", function() {
       expect(infowar.currentTurn()).toBe(undefined);
     });
+    it("should be the setup phase", function() {
+      expect(infowar.currentPhase()).toBe(h.C.SETUP);
+    });
     it("should have five state pieces in the capital", function() {
       var pieces = infowar.getPiecesAt(Position(4)(0));
       expect(pieces.length).toBe(5);
@@ -99,6 +102,10 @@ describe("infowar", function() {
       it("should indicate that it's the insurgent's turn after placement", function() {
         initInsurgents(infowar);
         expect(infowar.currentTurn()).toBe(Infowar.INSURGENT);
+      });
+      it("should change the phase to playing", function() {
+        initInsurgents(infowar);
+        expect(infowar.currentPhase()).toBe(h.C.PLAYING);
       });
       it("should add entries into the history log", function() {
         for (var i = 0; i < 5; i++) {
@@ -301,6 +308,7 @@ describe("infowar", function() {
     });
     it("should end the game", function() {
       expect(infowar.currentTurn()).toBe(undefined);
+      expect(infowar.currentPhase()).toBe(h.C.GAMEOVER);
     });
   });
 });
