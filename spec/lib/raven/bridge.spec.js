@@ -31,6 +31,8 @@ describe("Ravenbridge", function() {
       var socket = {
         emit: function(message, _data) {
           data = _data;
+        },
+        on: function() {
         }
       };
       var player = {};
