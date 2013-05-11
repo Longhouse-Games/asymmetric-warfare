@@ -52,6 +52,12 @@ describe("infowar", function() {
       it("should indicate that five insurgents can be placed", function() {
         expect(infowar.initialInsurgents()).toBe(5);
       });
+      it("should not accept too many placements", function() {
+        initInsurgents(infowar);
+        expect(function() {
+          infowar.addInsurgent(Position(0)(0));
+        }).toThrow("Cannot add more insurgents!");
+      });
       it("should decrease initial insurgents as pieces are added", function() {
         infowar.addInsurgent(Position(0)(0));
         expect(infowar.initialInsurgents()).toBe(4);
@@ -282,6 +288,7 @@ describe("infowar", function() {
   });
   describe("insurgents hold four adjacent spaces in the inner ring", function() {
     beforeEach(function() {
+      infowar = Infowar();
       for (var i = 0; i < Infowar.INITIAL_INSURGENTS; i++) {
         infowar.addInsurgent(Position(0)(0));
       }
