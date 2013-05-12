@@ -49,6 +49,31 @@ describe("Ravenbridge", function() {
       }
     });
   });
+  describe("receiving a bad message", function() {
+    it("should not crash the server", function() {
+      var bridge = Ravenbridge();
+      var handler;
+      var socket = {
+        emit: function() {},
+        on: function(message, _handler) {
+          if (message === 'placeInsurgent') {
+            handler = _handler;
+          }
+        }
+      };
+      spyOn(socket, 'emit');
+      bridge.addPlayer(socket, null);
+      handler(Position(0)(0).asKey());
+      handler(Position(0)(0).asKey());
+      handler(Position(0)(0).asKey());
+      handler(Position(0)(0).asKey());
+      handler(Position(0)(0).asKey());
+      expect(function() {
+        handler(Position(0)(0).asKey());
+      }).not.toThrow();
+      expect(socket.emit).toHaveBeenCalledWith('error', 'Invalid message: All initial insurgents have been placed.');
+    });
+  });
 });
 
 return {
