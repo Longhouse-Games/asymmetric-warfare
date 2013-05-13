@@ -2,6 +2,12 @@ define(['lib/helpers', 'lib/infowar', 'lib/raven/bridge'], function(h, Infowar, 
 var Position = h.Position;
 
 describe("Ravenbridge", function() {
+  var bridge;
+
+  beforeEach(function() {
+    bridge = Ravenbridge();
+  });
+
   it("return an object", function() {
     expect(Ravenbridge).not.toBe(undefined);
   });
@@ -26,7 +32,6 @@ describe("Ravenbridge", function() {
   });
   describe("connecting a player", function() {
     it("should send the game history", function() {
-      var bridge = Ravenbridge();
       var data;
       var socket = {
         emit: function(message, _data) {
@@ -49,9 +54,44 @@ describe("Ravenbridge", function() {
       }
     });
   });
+  describe("receiving a message", function() {
+    var message;
+    var socket;
+    beforeEach(function() {
+      var placeInsurgent;
+      socket = {
+        emit: function() {},
+        on: function(message, _handler) {
+          if (message === 'insurgentMove') {
+            handler = _handler;
+          } else if (message === 'placeInsurgent') {
+            placeInsurgent = _handler;
+          }
+        }
+      };
+      spyOn(socket, 'emit');
+      bridge.addPlayer(socket, null);
+      placeInsurgent(Position(0)(0).asKey());
+      placeInsurgent(Position(0)(0).asKey());
+      placeInsurgent(Position(0)(0).asKey());
+      placeInsurgent(Position(0)(0).asKey());
+      placeInsurgent(Position(0)(0).asKey());
+      handler({ src:Position(0)(0).asKey(), dest:Position(1)(0).asKey()});
+    });
+    it("should send game history", function() {
+      expect(socket.emit.calls.length).toBe(7);
+      expect(socket.emit.calls[6].args[0]).toBe('update');
+      var history = socket.emit.calls[6].args[1].history;
+      expect(history).toBeDefined();
+      expect(history.length).toBe(11);
+      expect(history[10].type).toBe(h.C.MOVE);
+      expect(history[10].player).toBe(h.C.INSURGENT);
+      expect(history[10].src).toBe(Position(0)(0).asKey());
+      expect(history[10].dest).toBe(Position(1)(0).asKey());
+    });
+  });
   describe("receiving a bad message", function() {
     it("should not crash the server", function() {
-      var bridge = Ravenbridge();
       var handler;
       var socket = {
         emit: function() {},
