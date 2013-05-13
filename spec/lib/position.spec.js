@@ -87,23 +87,23 @@ describe("Position", function() {
       expect(positions[0]).toBePosition(position(0)(1));
       expect(positions[1]).toBePosition(position(0)(11));
       expect(positions[2]).toBePosition(position(1)(0));
-      expect(positions[3]).toBePosition(position(1)(1));
+      expect(positions[3]).toBePosition(position(1)(11));
     });
     it("should report adjacent positions on middle circles", function() {
       var positions = position(1)(0).adjacentPositions();
       expect(positions.length).toBe(6);
       expect(positions[0]).toBePosition(position(0)(0));
-      expect(positions[1]).toBePosition(position(0)(11));
+      expect(positions[1]).toBePosition(position(0)(1));
       expect(positions[2]).toBePosition(position(1)(1));
       expect(positions[3]).toBePosition(position(1)(11));
       expect(positions[4]).toBePosition(position(2)(0));
-      expect(positions[5]).toBePosition(position(2)(1));
+      expect(positions[5]).toBePosition(position(2)(11));
     });
     it("should report adjacent positions on the inner circle", function() {
       var positions = position(3)(7).adjacentPositions();
       expect(positions.length).toBe(5);
       expect(positions[0]).toBePosition(position(2)(7));
-      expect(positions[1]).toBePosition(position(2)(6));
+      expect(positions[1]).toBePosition(position(2)(8));
       expect(positions[2]).toBePosition(position(3)(8));
       expect(positions[3]).toBePosition(position(3)(6));
       expect(positions[4]).toBePosition(position(4)(0));
