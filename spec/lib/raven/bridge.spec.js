@@ -70,7 +70,7 @@ describe("Ravenbridge", function() {
         }
       };
       spyOn(socket, 'emit');
-      bridge.addPlayer(socket, null);
+      bridge.addPlayer(socket, {});
       placeInsurgent(Position(0)(0).asKey());
       placeInsurgent(Position(0)(0).asKey());
       placeInsurgent(Position(0)(0).asKey());
@@ -102,7 +102,7 @@ describe("Ravenbridge", function() {
         }
       };
       spyOn(socket, 'emit');
-      bridge.addPlayer(socket, null);
+      bridge.addPlayer(socket, {});
       handler(Position(0)(0).asKey());
       handler(Position(0)(0).asKey());
       handler(Position(0)(0).asKey());
