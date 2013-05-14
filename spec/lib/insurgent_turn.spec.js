@@ -41,6 +41,11 @@ describe("insurgent turn", function() {
     it("should mark the turn as not complete", function() {
       expect(turn.isComplete()).toBe(false);
     });
+    it("should throw when given a 2 point move", function() {
+      expect(function() {
+        turn.applyMove(InsurgentMove(Position(0)(1))(Position(1)(1)));
+      }).toThrow("Insufficient movement points!");
+    });
   });
   describe("with a previous 2-point move", function() {
     beforeEach(function() {
