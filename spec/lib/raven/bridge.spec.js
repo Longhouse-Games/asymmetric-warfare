@@ -111,7 +111,7 @@ describe("Ravenbridge", function() {
       expect(function() {
         handler(Position(0)(0).asKey());
       }).not.toThrow();
-      expect(socket.emit).toHaveBeenCalledWith('error', 'Invalid message: All initial insurgents have been placed.');
+      expect(socket.emit).toHaveBeenCalledWith('error', jasmine.any(String));
     });
   });
 });
