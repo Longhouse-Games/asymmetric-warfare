@@ -107,7 +107,7 @@ describe("infowar", function() {
       });
       it("should indicate that it's the insurgent's turn after placement", function() {
         initInsurgents(infowar);
-        expect(infowar.currentTurn()).toBe(Infowar.INSURGENT);
+        expect(infowar.currentTurn().id()).toBe(Infowar.INSURGENT);
       });
       it("should change the phase to playing", function() {
         initInsurgents(infowar);
@@ -176,7 +176,7 @@ describe("infowar", function() {
         infowar = Infowar(history);
       });
       it("should be at the same state", function() {
-        expect(infowar.currentTurn()).toBe(Infowar.STATE);
+        expect(infowar.currentTurn().id()).toBe(Infowar.STATE);
         expect(infowar.getPiecesAt(Position(1)(0))).toBeUndefined();
         expect(infowar.getPiecesAt(Position(2)(0))).toBeDefined();
         expect(infowar.getPiecesAt(Position(2)(0))[0].type()).toBe(Pieces.INSURGENT_TYPE);
@@ -222,7 +222,7 @@ describe("infowar", function() {
       infowar.insurgentMove(src, dest);
       expect(infowar.getPiecesAt(src)).toBe(undefined);
       expect(infowar.getPiecesAt(dest).length).toBe(1);
-      expect(infowar.currentTurn()).toBe(Infowar.STATE);
+      expect(infowar.currentTurn().id()).toBe(Infowar.STATE);
     });
     it("should throw if a state's move is given", function() {
       expect(function() {
@@ -235,7 +235,7 @@ describe("infowar", function() {
       infowar.insurgentMove(src, dest);
       expect(infowar.getPiecesAt(src)).toBe(undefined);
       expect(infowar.getPiecesAt(dest).length).toBe(1);
-      expect(infowar.currentTurn()).toBe(Infowar.INSURGENT);
+      expect(infowar.currentTurn().id()).toBe(Infowar.INSURGENT);
     });
     it("should add an entry in the log", function() {
       var src = Position(0)(2);
@@ -270,7 +270,7 @@ describe("infowar", function() {
       infowar.stateMove(src, dest);
       expect(infowar.getPiecesAt(src).length).toBe(4);
       expect(infowar.getPiecesAt(dest).length).toBe(1);
-      expect(infowar.currentTurn()).toBe(Infowar.INSURGENT);
+      expect(infowar.currentTurn().id()).toBe(Infowar.INSURGENT);
     });
     it("should add an entry in the log", function() {
       var src = Position(4)(0);
