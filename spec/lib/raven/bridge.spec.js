@@ -90,6 +90,26 @@ describe("Ravenbridge", function() {
       expect(history[10].dest).toBe(Position(1)(0).asKey());
     });
   });
+  describe("receiving a message that is not appropriate for the role", function() {
+    var placeInsurgent;
+    var socket;
+    beforeEach(function() {
+      socket = {
+        emit: function() {},
+        on: function(message, _handler) {
+          if (message === 'placeInsurgent') { placeInsurgent = _handler; };
+        }
+      };
+      spyOn(socket, 'emit');
+      bridge.addPlayer(socket, {}, Ravenbridge.metadata.roles[1].slug); //state player
+    });
+    it("should emit an error", function() {
+      placeInsurgent(Position(0)(0).asKey());
+      expect(socket.emit.calls.length).toBe(2);
+      expect(socket.emit.calls[1].args[0]).toBe('error');
+      expect(socket.emit.calls[1].args[1]).toBe("It's not your turn!");
+    });
+  });
   describe("receiving a bad message", function() {
     it("should not crash the server", function() {
       var handler;
