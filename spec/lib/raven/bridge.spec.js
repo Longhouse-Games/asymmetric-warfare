@@ -42,7 +42,7 @@ describe("Ravenbridge", function() {
       };
       var player = {};
       spyOn(socket, 'emit').andCallThrough();
-      bridge.addPlayer(socket, player);
+      bridge.addPlayer(socket, player, Ravenbridge.metadata.roles[0].slug);
       expect(socket.emit).toHaveBeenCalledWith('update', jasmine.any(Object));
       expect(data.history).toBeDefined();
       expect(data.history.length).toBe(5);
@@ -70,7 +70,7 @@ describe("Ravenbridge", function() {
         }
       };
       spyOn(socket, 'emit');
-      bridge.addPlayer(socket, {});
+      bridge.addPlayer(socket, {}, Ravenbridge.metadata.roles[0].slug);
       placeInsurgent(Position(0)(0).asKey());
       placeInsurgent(Position(0)(0).asKey());
       placeInsurgent(Position(0)(0).asKey());
@@ -102,7 +102,7 @@ describe("Ravenbridge", function() {
         }
       };
       spyOn(socket, 'emit');
-      bridge.addPlayer(socket, {});
+      bridge.addPlayer(socket, {}, Ravenbridge.metadata.roles[0].slug);
       handler(Position(0)(0).asKey());
       handler(Position(0)(0).asKey());
       handler(Position(0)(0).asKey());
