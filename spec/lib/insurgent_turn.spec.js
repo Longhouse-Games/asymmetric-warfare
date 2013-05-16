@@ -9,7 +9,7 @@ describe("insurgent turn", function() {
     turn = InsurgentTurn();
   });
   it("should identify as insurgent", function() {
-    expect(turn.id()).toBe("INSURGENT");
+    expect(turn.id()).toBe(h.C.INSURGENT);
   });
   describe("with no previous actions", function() {
     it("should list MOVE and GROW as valid actions", function() {

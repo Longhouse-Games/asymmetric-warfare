@@ -24,7 +24,7 @@ describe("Ravenbridge", function() {
       expect(metadata.slug).toBe("infowar");
       expect(metadata.roles).toBeDefined();
       expect(metadata.roles.length).toBe(2);
-      expect(metadata.roles[0].slug).toBe('insurgents');
+      expect(metadata.roles[0].slug).toBe(h.C.INSURGENT);
       expect(metadata.roles[0].name).toBe('Insurgents');
       expect(metadata.roles[1].slug).toBe('state');
       expect(metadata.roles[1].name).toBe('The State');
