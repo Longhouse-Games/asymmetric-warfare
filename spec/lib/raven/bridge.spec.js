@@ -7,7 +7,8 @@ describe("Ravenbridge", function() {
 
   beforeEach(function() {
     raven = {
-      broadcast: function() {}
+      broadcast: function() {},
+      save: function() {}
     };
     bridge = Ravenbridge(raven);
   });
