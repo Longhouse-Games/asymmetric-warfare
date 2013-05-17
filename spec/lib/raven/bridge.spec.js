@@ -3,9 +3,13 @@ var Position = h.Position;
 
 describe("Ravenbridge", function() {
   var bridge;
+  var raven;
 
   beforeEach(function() {
-    bridge = Ravenbridge();
+    raven = {
+      broadcast: function() {}
+    };
+    bridge = Ravenbridge(raven);
   });
 
   it("return an object", function() {
@@ -41,9 +45,10 @@ describe("Ravenbridge", function() {
         }
       };
       var player = {};
-      spyOn(socket, 'emit').andCallThrough();
+      spyOn(raven, 'broadcast').andCallThrough();
       bridge.addPlayer(socket, player, Ravenbridge.metadata.roles[0].slug);
-      expect(socket.emit).toHaveBeenCalledWith('update', jasmine.any(Object));
+      expect(raven.broadcast).toHaveBeenCalledWith('update', jasmine.any(Object));
+      var data = raven.broadcast.mostRecentCall.args[1];
       expect(data.history).toBeDefined();
       expect(data.history.length).toBe(5);
       for (var i = 0; i < 5; i++) {
@@ -69,7 +74,7 @@ describe("Ravenbridge", function() {
           }
         }
       };
-      spyOn(socket, 'emit');
+      spyOn(raven, 'broadcast');
       bridge.addPlayer(socket, {}, Ravenbridge.metadata.roles[0].slug);
       placeInsurgent(Position(0)(0).asKey());
       placeInsurgent(Position(0)(0).asKey());
@@ -79,9 +84,9 @@ describe("Ravenbridge", function() {
       handler({ src:Position(0)(0).asKey(), dest:Position(1)(0).asKey()});
     });
     it("should send game history", function() {
-      expect(socket.emit.calls.length).toBe(7);
-      expect(socket.emit.calls[6].args[0]).toBe('update');
-      var history = socket.emit.calls[6].args[1].history;
+      expect(raven.broadcast.calls.length).toBe(7);
+      expect(raven.broadcast.calls[6].args[0]).toBe('update');
+      var history = raven.broadcast.calls[6].args[1].history;
       expect(history).toBeDefined();
       expect(history.length).toBe(11);
       expect(history[10].type).toBe(h.C.MOVE);
@@ -105,9 +110,9 @@ describe("Ravenbridge", function() {
     });
     it("should emit an error", function() {
       placeInsurgent(Position(0)(0).asKey());
-      expect(socket.emit.calls.length).toBe(2);
-      expect(socket.emit.calls[1].args[0]).toBe('error');
-      expect(socket.emit.calls[1].args[1]).toBe("It's not your turn!");
+      expect(socket.emit.calls.length).toBe(1);
+      expect(socket.emit.calls[0].args[0]).toBe('error');
+      expect(socket.emit.calls[0].args[1]).toBe("It's not your turn!");
     });
   });
   describe("receiving a bad message", function() {
