@@ -13,9 +13,6 @@ describe("Ravenbridge", function() {
     bridge = Ravenbridge(raven);
   });
 
-  it("return an object", function() {
-    expect(Ravenbridge).not.toBe(undefined);
-  });
   describe("metadata", function() {
     var metadata;
     beforeEach(function() {
