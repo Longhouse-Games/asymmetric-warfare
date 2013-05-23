@@ -12,9 +12,9 @@ describe("state turn", function() {
     it("should list MOVE, TURN and KILL as valid actions", function() {
       var actions = turn.validActions();
       expect(actions[0]).toBe(StateTurn.MOVE);
+      expect(actions[1]).toBe(StateTurn.END_TURN);
       // TODO
       //expect(actions[1]).toBe("TURN");
-      //expect(actions[2]).toBe("KILL");
     });
     it("should give 2 remaining movement points", function() {
       expect(turn.movementPoints()).toBe(2);
@@ -27,9 +27,9 @@ describe("state turn", function() {
     it("should list MOVE, TURN and KILL as valid actions", function() {
       var actions = turn.validActions();
       expect(actions[0]).toBe(StateTurn.MOVE);
+      expect(actions[1]).toBe(StateTurn.END_TURN);
       // TODO
       //expect(actions[1]).toBe("TURN");
-      //expect(actions[2]).toBe("KILL");
     });
     it("should give 1 remaining movement point", function() {
       expect(turn.movementPoints()).toBe(1);
@@ -42,10 +42,10 @@ describe("state turn", function() {
     });
     it("should list TURN and KILL as valid actions", function() {
       var actions = turn.validActions();
-      expect(actions.length).toBe(0);
+      expect(actions.length).toBe(1);
+      expect(actions[0]).toBe(StateTurn.END_TURN);
       // TODO
       //expect(actions[0]).toBe("TURN");
-      //expect(actions[1]).toBe("KILL");
     });
     it("should give 0 remaining movement points", function() {
       expect(turn.movementPoints()).toBe(0);

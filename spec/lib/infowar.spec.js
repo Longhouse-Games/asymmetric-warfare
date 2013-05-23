@@ -129,6 +129,22 @@ describe("infowar", function() {
     });
   });
 
+  describe("ending a turn", function() {
+    var initialHistory;
+    beforeEach(function() {
+      infowar = Infowar();
+      initInsurgents(infowar);
+      initialHistory = infowar.history().length;
+    });
+    it("should record history for ending a turn", function() {
+      infowar.endTurn();
+      var history = infowar.history();
+      expect(history.length).toBe(initialHistory + 1);
+      expect(history[history.length-1].type()).toBe(h.C.END_TURN);
+      expect(history[history.length-1].player()).toBe(h.C.INSURGENT);
+    });
+  });
+
   describe("creating from history", function() {
     var history;
     beforeEach(function() {
@@ -170,16 +186,19 @@ describe("infowar", function() {
           history.push(History.Placement(Infowar.INSURGENT, Position(0)(0)));
         }
         history.push(History.Move(Infowar.INSURGENT, InsurgentMove(Position(0)(0))(Position(1)(0))));
+        history.push(History.EndTurn(Infowar.INSURGENT));
         history.push(History.Move(Infowar.STATE, StateMove(Position(h.C.CAPITAL)(0))(Position(3)(0))));
-        history.push(History.Move(Infowar.INSURGENT, InsurgentMove(Position(1)(0))(Position(2)(0))));
+        history.push(History.EndTurn(Infowar.STATE));
+        history.push(History.Move(Infowar.INSURGENT, InsurgentMove(Position(1)(0))(Position(1)(1))));
+        history.push(History.EndTurn(Infowar.INSURGENT));
 
         infowar = Infowar(history);
       });
       it("should be at the same state", function() {
         expect(infowar.currentTurn().id()).toBe(Infowar.STATE);
         expect(infowar.getPiecesAt(Position(1)(0))).toBeUndefined();
-        expect(infowar.getPiecesAt(Position(2)(0))).toBeDefined();
-        expect(infowar.getPiecesAt(Position(2)(0))[0].type()).toBe(Pieces.INSURGENT_TYPE);
+        expect(infowar.getPiecesAt(Position(1)(1))).toBeDefined();
+        expect(infowar.getPiecesAt(Position(1)(1))[0].type()).toBe(Pieces.INSURGENT_TYPE);
         expect(infowar.getPiecesAt(Position(3)(0))).toBeDefined();
         expect(infowar.getPiecesAt(Position(3)(0))[0].type()).toBe(Pieces.STATE_TYPE);
         expect(infowar.getPiecesAt(Position(0)(0)).length).toBe(4);
@@ -220,6 +239,7 @@ describe("infowar", function() {
       var src = Position(0)(2);
       var dest = Position(1)(2);
       infowar.insurgentMove(src, dest);
+      infowar.endTurn();
       expect(infowar.getPiecesAt(src)).toBe(undefined);
       expect(infowar.getPiecesAt(dest).length).toBe(1);
       expect(infowar.currentTurn().id()).toBe(Infowar.STATE);
@@ -252,12 +272,15 @@ describe("infowar", function() {
     });
   });
   describe("state turn", function() {
+    var initialHistory;
     beforeEach(function() {
       infowar = Infowar();
       for (var i = 0; i < Infowar.INITIAL_INSURGENTS; i++) {
         infowar.addInsurgent(Position(0)(i));
       }
       infowar.insurgentMove(Position(0)(2), Position(1)(2));
+      infowar.endTurn();
+      initialHistory = infowar.history().length;
     });
     it("should throw if an insurgent's move is given", function() {
       expect(function() {
@@ -265,11 +288,7 @@ describe("infowar", function() {
       }).toThrow("It's not your turn!");
     });
     it("should change to insurgent's turn after state finishes turn", function() {
-      var src = Position(4)(0);
-      var dest = Position(3)(0);
-      infowar.stateMove(src, dest);
-      expect(infowar.getPiecesAt(src).length).toBe(4);
-      expect(infowar.getPiecesAt(dest).length).toBe(1);
+      infowar.endTurn();
       expect(infowar.currentTurn().id()).toBe(Infowar.INSURGENT);
     });
     it("should add an entry in the log", function() {
@@ -277,8 +296,8 @@ describe("infowar", function() {
       var dest = Position(3)(0);
       infowar.stateMove(src, dest);
       var history = infowar.history();
-      expect(history.length).toBe(12);
-      var entry = history[11];
+      expect(history.length).toBe(initialHistory+1);
+      var entry = history[history.length-1];
       expect(entry).toBeDefined();
       expect(entry.player()).toBe(Infowar.STATE);
       expect(entry.type()).toBe(h.C.MOVE);
@@ -299,15 +318,18 @@ describe("infowar", function() {
         var tmp = state_src;
         state_src = state_dest;
         state_dest = tmp;
+        infowar.endTurn();
       };
       for (var i = 0; i < 4; i++) {
         for (var j = 0; j < 3; j++) {
           infowar.insurgentMove(Position(j)(0), Position(j+1)(0));
+          infowar.endTurn();
           moveState();
         }
       }
       // Four insurgents should be at 3,0
       infowar.insurgentMove(Position(3)(0), Position(3)(2));
+      infowar.endTurn();
       moveState();
       infowar.insurgentMove(Position(3)(0), Position(3)(1));
       infowar.insurgentMove(Position(3)(0), Position(3)(11));

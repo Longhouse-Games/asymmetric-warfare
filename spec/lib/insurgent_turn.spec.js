@@ -15,6 +15,7 @@ describe("insurgent turn", function() {
     it("should list MOVE and GROW as valid actions", function() {
       var actions = turn.validActions();
       expect(actions[0]).toBe(InsurgentTurn.MOVE);
+      expect(actions[1]).toBe(InsurgentTurn.END_TURN);
       // TODO
       //expect(actions[1]).toBe("GROW");
     });
@@ -32,6 +33,7 @@ describe("insurgent turn", function() {
     it("should list MOVE and GROW as valid actions", function() {
       var actions = turn.validActions();
       expect(actions[0]).toBe(InsurgentTurn.MOVE);
+      expect(actions[1]).toBe(InsurgentTurn.END_TURN);
       // TODO
       //expect(actions[1]).toBe("GROW");
     });
@@ -54,14 +56,15 @@ describe("insurgent turn", function() {
     });
     it("should list only GROW as a valid action", function() {
       var actions = turn.validActions();
-      expect(actions.length).toBe(0);
+      expect(actions.length).toBe(1);
+      expect(actions[0]).toBe(InsurgentTurn.END_TURN);
       // TODO expect(actions[0]).toBe("GROW");
     });
     it("should give 0 remaining movement points", function() {
       expect(turn.movementPoints()).toBe(0);
     });
     it("should mark the turn as complete", function() {
-      expect(turn.isComplete()).toBe(true);
+      expect(turn.isComplete()).toBe(false);
     });
     it("should throw if another move is tried", function() {
       move = InsurgentMove(Position(0)(2))(Position(0)(4));

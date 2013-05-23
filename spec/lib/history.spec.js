@@ -92,6 +92,39 @@ describe("History", function() {
       });
     });
   });
+  describe("EndTurn", function() {
+    var entry;
+    beforeEach(function() {
+      entry = History.EndTurn(h.C.STATE);
+    });
+    it("should create", function() {
+      expect(entry).toBeDefined();
+      expect(entry.type()).toBe(h.C.END_TURN);
+      expect(entry.player()).toBe(h.C.STATE);
+    });
+    it("should serialise", function() {
+      var dto = entry.toDTO();
+      expect(dto.type).toBe(h.C.END_TURN);
+      expect(dto.player).toBe(h.C.STATE);
+    });
+    it("should deserialise", function() {
+      var dto = { type: h.C.END_TURN, player: h.C.STATE };
+      entry = History.fromDTO(dto);
+      expect(entry.type()).toBe(h.C.END_TURN);
+      expect(entry.player()).toBe(h.C.STATE);
+    });
+    describe("apply", function() {
+      var infowar;
+      beforeEach(function() {
+        infowar = { endTurn: function() { } };
+        spyOn(infowar, 'endTurn');
+      });
+      it("should apply", function() {
+        entry.apply(infowar);
+        expect(infowar.endTurn).toHaveBeenCalled();
+      });
+    });
+  });
   describe("Move", function() {
     var src = Position(4)(0);
     var dest = Position(3)(0);
