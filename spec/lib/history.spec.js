@@ -156,6 +156,26 @@ describe("History", function() {
       expect(History.fromDTO({type: h.C.KILL, player: h.C.STATE, position: "4,0"}).position().asKey()).toBe(position.asKey());
     });
   });
+  describe("Grow", function() {
+    var entry;
+    var position = Position(0)(0);
+    beforeEach(function() {
+      entry = History.Grow(h.C.INSURGENT, position);
+    });
+    behaves_like_entry({
+      type: h.C.GROW,
+      player: h.C.INSURGENT,
+      args: [Position(0)(0)],
+      constructor: History.Grow,
+      infowarMethod: "grow",
+      dto: { position: position.asKey() }
+    });
+    it("should support a position", function() {
+      expect(entry.position().asKey()).toBe(position.asKey());
+      expect(entry.toDTO().position).toBe(position.asKey());
+      expect(History.fromDTO({type: h.C.GROW, player: h.C.INSURGENT, position: "0,0"}).position().asKey()).toBe(position.asKey());
+    });
+  });
   describe("EndTurn", function() {
     var entry;
     beforeEach(function() {

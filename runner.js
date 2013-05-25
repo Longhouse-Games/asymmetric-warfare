@@ -30,7 +30,8 @@ requirejs(
       './spec/lib/history.spec',
       './spec/lib/infowar.spec',
       './spec/lib/raven/bridge.spec',
-      './spec/lib/kill.spec'
+      './spec/lib/kill.spec',
+      './spec/lib/grow.spec'
     ],
     function() {
   for (var i = 0; i < arguments.length; i++) {
