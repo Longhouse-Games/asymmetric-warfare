@@ -185,11 +185,11 @@ describe("infowar", function() {
         for (var i = 0; i < 5; i++) {
           history.push(History.Placement(Infowar.INSURGENT, Position(0)(0)));
         }
-        history.push(History.Move(Infowar.INSURGENT, InsurgentMove(Position(0)(0))(Position(1)(0))));
+        history.push(History.Move(Infowar.INSURGENT, Position(0)(0), Position(1)(0)));
         //history.push(History.EndTurn(Infowar.INSURGENT));
-        history.push(History.Move(Infowar.STATE, StateMove(Position(h.C.CAPITAL)(0))(Position(3)(0))));
+        history.push(History.Move(Infowar.STATE, Position(h.C.CAPITAL)(0), Position(3)(0)));
         history.push(History.EndTurn(Infowar.STATE));
-        history.push(History.Move(Infowar.INSURGENT, InsurgentMove(Position(1)(0))(Position(1)(1))));
+        history.push(History.Move(Infowar.INSURGENT, Position(1)(0), Position(1)(1)));
         history.push(History.EndTurn(Infowar.INSURGENT));
 
         infowar = Infowar(history);
@@ -267,8 +267,8 @@ describe("infowar", function() {
       expect(entry).toBeDefined();
       expect(entry.player()).toBe(Infowar.INSURGENT);
       expect(entry.type()).toBe(h.C.MOVE);
-      expect(entry.move().src.asKey()).toBe(src.asKey());
-      expect(entry.move().dest.asKey()).toBe(dest.asKey());
+      expect(entry.src().asKey()).toBe(src.asKey());
+      expect(entry.dest().asKey()).toBe(dest.asKey());
     });
   });
   describe("state turn", function() {
@@ -301,8 +301,8 @@ describe("infowar", function() {
       expect(entry).toBeDefined();
       expect(entry.player()).toBe(Infowar.STATE);
       expect(entry.type()).toBe(h.C.MOVE);
-      expect(entry.move().src.asKey()).toBe(src.asKey());
-      expect(entry.move().dest.asKey()).toBe(dest.asKey());
+      expect(entry.src().asKey()).toBe(src.asKey());
+      expect(entry.dest().asKey()).toBe(dest.asKey());
     });
   });
   describe("insurgents hold four adjacent spaces in the inner ring", function() {
