@@ -186,7 +186,7 @@ describe("infowar", function() {
           history.push(History.Placement(Infowar.INSURGENT, Position(0)(0)));
         }
         history.push(History.Move(Infowar.INSURGENT, InsurgentMove(Position(0)(0))(Position(1)(0))));
-        history.push(History.EndTurn(Infowar.INSURGENT));
+        //history.push(History.EndTurn(Infowar.INSURGENT));
         history.push(History.Move(Infowar.STATE, StateMove(Position(h.C.CAPITAL)(0))(Position(3)(0))));
         history.push(History.EndTurn(Infowar.STATE));
         history.push(History.Move(Infowar.INSURGENT, InsurgentMove(Position(1)(0))(Position(1)(1))));
@@ -239,7 +239,7 @@ describe("infowar", function() {
       var src = Position(0)(2);
       var dest = Position(1)(2);
       infowar.insurgentMove(src, dest);
-      infowar.endTurn();
+      //infowar.endTurn();
       expect(infowar.getPiecesAt(src)).toBe(undefined);
       expect(infowar.getPiecesAt(dest).length).toBe(1);
       expect(infowar.currentTurn().id()).toBe(Infowar.STATE);
@@ -279,7 +279,7 @@ describe("infowar", function() {
         infowar.addInsurgent(Position(0)(i));
       }
       infowar.insurgentMove(Position(0)(2), Position(1)(2));
-      infowar.endTurn();
+      //infowar.endTurn();
       initialHistory = infowar.history().length;
     });
     it("should throw if an insurgent's move is given", function() {
@@ -323,13 +323,13 @@ describe("infowar", function() {
       for (var i = 0; i < 4; i++) {
         for (var j = 0; j < 3; j++) {
           infowar.insurgentMove(Position(j)(0), Position(j+1)(0));
-          infowar.endTurn();
+          //infowar.endTurn();
           moveState();
         }
       }
       // Four insurgents should be at 3,0
       infowar.insurgentMove(Position(3)(0), Position(3)(2));
-      infowar.endTurn();
+      //infowar.endTurn();
       moveState();
       infowar.insurgentMove(Position(3)(0), Position(3)(1));
       infowar.insurgentMove(Position(3)(0), Position(3)(11));
@@ -338,6 +338,45 @@ describe("infowar", function() {
     it("should end the game", function() {
       expect(infowar.currentTurn()).toBe(undefined);
       expect(infowar.currentPhase()).toBe(h.C.GAMEOVER);
+    });
+  });
+  describe("kill action", function() {
+    beforeEach(function() {
+      infowar = Infowar();
+      for (var i = 0; i < Infowar.INITIAL_INSURGENTS; i++) {
+        infowar.addInsurgent(Position(0)(i));
+      }
+      infowar.insurgentMove(Position(0)(1), Position(0)(0));
+      infowar.endTurn();
+    });
+    it("should only be possible during State turn", function() {
+      infowar.endTurn(); // insurgent turn now
+      expect(function() {
+        infowar.kill(Position(0)(0));
+      }).toThrow("It's not your turn!");
+    });
+    it("should throw if there is no state piece at the location", function() {
+      expect(function() {
+        infowar.kill(Position(0)(0));
+      }).toThrow("No State piece at that location!");
+    });
+    it("should remove all insurgent pieces at the location", function() {
+      expect(infowar.getPiecesAt(Position(0)(0)).length).toBe(2);
+      for (var i = h.C.CAPITAL; i > 0; i--) {
+        infowar.stateMove(Position(i)(0), Position(i-1)(0));
+        infowar.endTurn();
+        infowar.endTurn(); // insurgent turn
+      }
+      expect(infowar.getPiecesAt(Position(0)(0)).length).toBe(3);
+
+      infowar.kill(Position(0)(0));
+      expect(infowar.getPiecesAt(Position(0)(0)).length).toBe(1);
+      expect(infowar.getPiecesAt(Position(0)(0))[0].type()).toBe(h.C.STATE);
+    });
+    it("should log an entry", function() {
+      var initialHistory = infowar.history().length;
+      infowar.kill(Position(4)(0));
+      expect(infowar.history().length).toBe(initialHistory+1);
     });
   });
 });

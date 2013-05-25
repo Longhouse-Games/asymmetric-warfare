@@ -92,6 +92,70 @@ describe("History", function() {
       });
     });
   });
+  var behaves_like_entry = function(options) {
+    var type, player, args, constructor, infowarMethod, entry, dto;
+    beforeEach(function() {
+      type = options.type;
+      player = options.player;
+      args = [player];
+      args = args.concat(options.args || []);
+      func = options.constructor;
+      infowarMethod = options.infowarMethod;
+      dto = options.dto || {};
+      entry = func.apply(History, args);
+    });
+    it("should create", function() {
+      expect(entry).toBeDefined();
+      expect(entry.type()).toBe(type);
+      expect(entry.player()).toBe(player);
+    });
+    it("should serialise", function() {
+      var dto = entry.toDTO();
+      expect(dto.type).toBe(type);
+      expect(dto.player).toBe(player);
+    });
+    it("should deserialise", function() {
+      dto.type = type;
+      dto.player = player;
+
+      entry = History.fromDTO(dto);
+
+      expect(entry.type()).toBe(type);
+      expect(entry.player()).toBe(player);
+    });
+    describe("apply", function() {
+      var infowar;
+      beforeEach(function() {
+        infowar = {};
+        infowar[infowarMethod] = function() {};
+        spyOn(infowar, infowarMethod);
+      });
+      it("should apply", function() {
+        entry.apply(infowar);
+        expect(infowar[infowarMethod]).toHaveBeenCalled();
+      });
+    });
+  };
+  describe("Kill", function() {
+    var entry;
+    var position = Position(h.C.CAPITAL)(0);
+    beforeEach(function() {
+      entry = History.Kill(h.C.STATE, position);
+    });
+    behaves_like_entry({
+      type: h.C.KILL,
+      player: h.C.STATE,
+      args: [Position(h.C.CAPITAL)(0)],
+      constructor: History.Kill,
+      infowarMethod: "kill",
+      dto: { position: position.asKey() }
+    });
+    it("should support a position", function() {
+      expect(entry.position().asKey()).toBe(position.asKey());
+      expect(entry.toDTO().position).toBe(position.asKey());
+      expect(History.fromDTO({type: h.C.KILL, player: h.C.STATE, position: "4,0"}).position().asKey()).toBe(position.asKey());
+    });
+  });
   describe("EndTurn", function() {
     var entry;
     beforeEach(function() {
