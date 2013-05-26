@@ -379,6 +379,54 @@ describe("infowar", function() {
       expect(infowar.history().length).toBe(initialHistory+1);
     });
   });
+  describe("interrogate action", function() {
+    beforeEach(function() {
+      infowar = Infowar();
+      for (var i = 0; i < Infowar.INITIAL_INSURGENTS; i++) {
+        infowar.addInsurgent(Position(0)(i));
+      }
+      infowar.insurgentMove(Position(0)(2), Position(0)(0));
+      infowar.endTurn();
+    });
+    it("should only be possible during State turn", function() {
+      infowar.endTurn(); // insurgent turn now
+      expect(function() {
+        infowar.interrogate(Position(0)(0));
+      }).toThrow("It's not your turn!");
+    });
+    it("should throw if there is no state piece at the location", function() {
+      expect(function() {
+        infowar.interrogate(Position(0)(0));
+      }).toThrow("No State piece at that location!");
+    });
+    it("should throw if there is no insurgent piece at the location", function() {
+      expect(function() {
+        infowar.interrogate(Position(4)(0));
+      }).toThrow("No Insurgent piece at that location!");
+    });
+    it("should reveal all insurgent pieces adjacent to the location", function() {
+      for (var i = h.C.CAPITAL; i > 0; i--) {
+        infowar.stateMove(Position(i)(0), Position(i-1)(0));
+        infowar.endTurn();
+        infowar.endTurn(); // insurgent turn
+      }
+      // State piece at 0,0 now
+      // Should be two pieces at 0,0, and one at 0,1
+      var positions = infowar.interrogate(Position(0)(0));
+      expect(positions.length).toBe(1);
+      expect(positions[0].asKey()).toBe(Position(0)(1).asKey());
+    });
+    it("should log an entry", function() {
+      for (var i = h.C.CAPITAL; i > 0; i--) {
+        infowar.stateMove(Position(i)(0), Position(i-1)(0));
+        infowar.endTurn();
+        infowar.endTurn(); // insurgent turn
+      }
+      var initialHistory = infowar.history().length;
+      infowar.interrogate(Position(0)(0));
+      expect(infowar.history().length).toBe(initialHistory+1);
+    });
+  });
   describe("grow action", function() {
     beforeEach(function() {
       infowar = Infowar();

@@ -1,4 +1,4 @@
-define(['lib/helpers', 'lib/infowar', 'lib/raven/bridge'], function(h, Infowar, Ravenbridge) {
+define(['underscore', 'lib/helpers', 'lib/infowar', 'lib/raven/bridge'], function(_, h, Infowar, Ravenbridge) {
 var Position = h.Position;
 
 describe("Ravenbridge", function() {
@@ -91,6 +91,45 @@ describe("Ravenbridge", function() {
       expect(history[10].player).toBe(h.C.INSURGENT);
       expect(history[10].src).toBe(Position(0)(0).asKey());
       expect(history[10].dest).toBe(Position(1)(0).asKey());
+    });
+  });
+  describe("receiving a message that has response data", function() {
+    var socket, interrogate;
+    beforeEach(function() {
+      //Bring infowar to a state where we can issue a State Interrogation
+      var infowar = Infowar();
+      _.times(5, function() { infowar.addInsurgent(Position(0)(0)); });
+      infowar.insurgentMove(Position(0)(0), Position(1)(0));
+      for (var i = h.C.CAPITAL; i > 1; i--) {
+        infowar.endTurn();
+        infowar.stateMove(Position(i)(0), Position(i-1)(0));
+        infowar.endTurn();
+      }
+      infowar.endTurn();
+      //State can issue Interrogation now
+
+      bridge = Ravenbridge(raven, _.map(infowar.history(), function(entry) { return entry.toDTO(); }));
+
+      socket = {
+        emit: function() {},
+        on: function(message, _handler) {
+          if (message === 'interrogate') { interrogate = _handler };
+        }
+      };
+      spyOn(socket, 'emit');
+      bridge.addPlayer(socket, {}, Ravenbridge.metadata.roles[1].slug); //state player
+    });
+    it("should transmit the response data back", function() {
+      interrogate(Position(1)(0).asKey());
+      expect(socket.emit.calls.length).toBe(1);
+      var message = socket.emit.calls[0].args[0];
+      expect(message).toBe('interrogate-result');
+
+      var data = socket.emit.calls[0].args[1];
+      expect(data.length).toBe(4);
+      _.times(4, function(i) {
+        expect(data[i]).toBe("0,0");
+      });
     });
   });
   describe("receiving a message that is not appropriate for the role", function() {

@@ -31,6 +31,7 @@ requirejs(
       './spec/lib/infowar.spec',
       './spec/lib/raven/bridge.spec',
       './spec/lib/kill.spec',
+      './spec/lib/interrogate.spec',
       './spec/lib/grow.spec'
     ],
     function() {
