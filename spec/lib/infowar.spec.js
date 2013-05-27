@@ -305,6 +305,55 @@ describe("infowar", function() {
       expect(entry.dest().asKey()).toBe(dest.asKey());
     });
   });
+  var endGameWithWinner = function(winner) {
+    it("should end the game", function() {
+      expect(infowar.currentTurn()).toBe(undefined);
+      expect(infowar.currentPhase()).toBe(h.C.GAMEOVER);
+    });
+    it(winner+" should be the winner", function() {
+      expect(infowar.winner()).toBe(winner);
+    });
+  };
+  describe("state kills 12 insurgents", function() {
+    beforeEach(function() {
+      infowar = Infowar();
+      for (var i = 0; i < Infowar.INITIAL_INSURGENTS; i++) {
+        infowar.addInsurgent(Position(0)(0));
+      }
+      for (var i = 0; i < 12 - Infowar.INITIAL_INSURGENTS; i++) {
+        infowar.grow(Position(0)(0));
+        infowar.endTurn();
+        infowar.endTurn();
+      }
+      expect(infowar.getPiecesAt(Position(0)(0)).length).toBe(12);
+      for (var i = h.C.CAPITAL; i > 0; i--) {
+        infowar.endTurn();
+        infowar.stateMove(Position(i)(0), Position(i-1)(0));
+        infowar.endTurn();
+      }
+      expect(infowar.getPiecesAt(Position(0)(0)).length).toBe(13);
+      infowar.endTurn();
+      infowar.kill(Position(0)(0));
+      expect(infowar.getPiecesAt(Position(0)(0)).length).toBe(1);
+    });
+    endGameWithWinner(h.C.STATE);
+  });
+  describe("state clears the board of insurgents", function() {
+    beforeEach(function() {
+      infowar = Infowar();
+      for (var i = 0; i < Infowar.INITIAL_INSURGENTS; i++) {
+        infowar.addInsurgent(Position(0)(0));
+      }
+      for (var i = h.C.CAPITAL; i > 0; i--) {
+        infowar.endTurn();
+        infowar.stateMove(Position(i)(0), Position(i-1)(0));
+        infowar.endTurn();
+      }
+      infowar.endTurn();
+      infowar.kill(Position(0)(0));
+    });
+    endGameWithWinner(h.C.STATE);
+  });
   describe("insurgents hold four adjacent spaces in the inner ring", function() {
     beforeEach(function() {
       infowar = Infowar();
@@ -335,10 +384,7 @@ describe("infowar", function() {
       infowar.insurgentMove(Position(3)(0), Position(3)(11));
       // Four adjacent spaces now occupied: 3,11 to 3,2
     });
-    it("should end the game", function() {
-      expect(infowar.currentTurn()).toBe(undefined);
-      expect(infowar.currentPhase()).toBe(h.C.GAMEOVER);
-    });
+    endGameWithWinner(h.C.INSURGENT);
   });
   describe("kill action", function() {
     beforeEach(function() {
