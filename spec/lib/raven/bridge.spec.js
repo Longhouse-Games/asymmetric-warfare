@@ -93,87 +93,122 @@ describe("Ravenbridge", function() {
       expect(history[10].dest).toBe(Position(1)(0).asKey());
     });
   });
-  describe("receiving a message that has response data", function() {
-    var socket, interrogate;
+
+  describe("with multiple players connected", function() {
+    var player1, player2, socket1, socket2;
     beforeEach(function() {
-      //Bring infowar to a state where we can issue a State Interrogation
-      var infowar = Infowar();
-      _.times(5, function() { infowar.addInsurgent(Position(0)(0)); });
-      infowar.insurgentMove(Position(0)(0), Position(1)(0));
-      for (var i = h.C.CAPITAL; i > 1; i--) {
-        infowar.endTurn();
-        infowar.stateMove(Position(i)(0), Position(i-1)(0));
-        infowar.endTurn();
-      }
-      infowar.endTurn();
-      //State can issue Interrogation now
-
-      bridge = Ravenbridge(raven, _.map(infowar.history(), function(entry) { return entry.toDTO(); }));
-
-      socket = {
-        emit: function() {},
-        on: function(message, _handler) {
-          if (message === 'interrogate') { interrogate = _handler };
-        }
-      };
-      spyOn(socket, 'emit');
-      bridge.addPlayer(socket, {}, Ravenbridge.metadata.roles[1].slug); //state player
+      player1 = {};
+      player2 = {};
+      socket1 = { emit: function() {}, on: function() {} };
+      socket2 = { emit: function() {}, on: function() {} };
     });
-    it("should transmit the response data back", function() {
-      interrogate(Position(1)(0).asKey());
-      expect(socket.emit.calls.length).toBe(1);
-      var message = socket.emit.calls[0].args[0];
-      expect(message).toBe('interrogate-result');
+    describe("receiving a message that has response data", function() {
+      var interrogate;
+      beforeEach(function() {
+        //Bring infowar to a state where we can issue a State Interrogation
+        var infowar = Infowar();
+        _.times(5, function() { infowar.addInsurgent(Position(0)(0)); });
+        infowar.insurgentMove(Position(0)(0), Position(1)(0));
+        for (var i = h.C.CAPITAL; i > 1; i--) {
+          infowar.endTurn();
+          infowar.stateMove(Position(i)(0), Position(i-1)(0));
+          infowar.endTurn();
+        }
+        infowar.endTurn();
+        //State can issue Interrogation now
 
-      var data = socket.emit.calls[0].args[1];
-      expect(data.length).toBe(4);
-      _.times(4, function(i) {
-        expect(data[i]).toBe("0,0");
+        bridge = Ravenbridge(raven, _.map(infowar.history(), function(entry) { return entry.toDTO(); }));
+
+        socket1 = {
+          emit: function() {},
+          on: function(message, _handler) {
+            if (message === 'interrogate') { interrogate = _handler };
+          }
+        };
+        spyOn(socket1, 'emit');
+        spyOn(socket2, 'emit');
+        bridge.addPlayer(socket1, {}, h.C.STATE);
+        bridge.addPlayer(socket2, {}, h.C.INSURGENT);
+        spyOn(raven, 'broadcast');
+
+        interrogate(Position(1)(0).asKey());
+      });
+      it("should transmit the response data back", function() {
+        expect(socket1.emit.calls.length).toBe(1);
+        var message = socket1.emit.calls[0].args[0];
+        expect(message).toBe('interrogate-result');
+
+        var data = socket1.emit.calls[0].args[1];
+        expect(data.length).toBe(4);
+        _.times(4, function(i) {
+          expect(data[i]).toBe("0,0");
+        });
+      });
+      it("should not transmit over broadcast", function() {
+        expect(raven.broadcast.calls.length).toBe(1); // this is the 'update', interrogate should not be sent there
+        expect(raven.broadcast.calls[0].args[0]).toBe('update');
+      });
+      it("should not transmit to the other player" ,function() {
+        expect(socket2.emit).not.toHaveBeenCalled();
       });
     });
-  });
-  describe("receiving a message that is not appropriate for the role", function() {
-    var placeInsurgent;
-    var socket;
-    beforeEach(function() {
-      socket = {
-        emit: function() {},
-        on: function(message, _handler) {
-          if (message === 'placeInsurgent') { placeInsurgent = _handler; };
-        }
-      };
-      spyOn(socket, 'emit');
-      bridge.addPlayer(socket, {}, Ravenbridge.metadata.roles[1].slug); //state player
-    });
-    it("should emit an error", function() {
-      placeInsurgent(Position(0)(0).asKey());
-      expect(socket.emit.calls.length).toBe(1);
-      expect(socket.emit.calls[0].args[0]).toBe('error');
-      expect(socket.emit.calls[0].args[1]).toBe("It's not your turn!");
-    });
-  });
-  describe("receiving a bad message", function() {
-    it("should not crash the server", function() {
-      var handler;
-      var socket = {
-        emit: function() {},
-        on: function(message, _handler) {
-          if (message === 'placeInsurgent') {
-            handler = _handler;
+    describe("receiving a message that is not appropriate for the role", function() {
+      var placeInsurgent;
+      beforeEach(function() {
+        socket1 = {
+          emit: function() {},
+          on: function(message, _handler) {
+            if (message === 'placeInsurgent') { placeInsurgent = _handler; };
           }
-        }
-      };
-      spyOn(socket, 'emit');
-      bridge.addPlayer(socket, {}, Ravenbridge.metadata.roles[0].slug);
-      handler(Position(0)(0).asKey());
-      handler(Position(0)(0).asKey());
-      handler(Position(0)(0).asKey());
-      handler(Position(0)(0).asKey());
-      handler(Position(0)(0).asKey());
-      expect(function() {
+        };
+        spyOn(socket1, 'emit');
+        spyOn(socket2, 'emit');
+        bridge.addPlayer(socket1, {}, h.C.STATE); //state player
+        bridge.addPlayer(socket2, {}, h.C.INSURGENT); //state player
+      });
+      it("should emit an error", function() {
+        placeInsurgent(Position(0)(0).asKey());
+        expect(socket1.emit.calls.length).toBe(1);
+        expect(socket1.emit.calls[0].args[0]).toBe('error');
+        expect(socket1.emit.calls[0].args[1]).toBe("It's not your turn!");
+      });
+      it("should not notify the other player", function() {
+        expect(socket2.emit).not.toHaveBeenCalled();
+      });
+    });
+    describe("receiving a bad message", function() {
+      var handler;
+      beforeEach(function() {
+        socket1 = {
+          emit: function() {},
+          on: function(message, _handler) {
+            if (message === 'placeInsurgent') {
+              handler = _handler;
+            }
+          }
+        };
+        spyOn(socket1, 'emit');
+        spyOn(socket2, 'emit');
+        bridge.addPlayer(socket1, {}, h.C.INSURGENT);
+        bridge.addPlayer(socket2, {}, h.C.STATE);
         handler(Position(0)(0).asKey());
-      }).not.toThrow();
-      expect(socket.emit).toHaveBeenCalledWith('error', jasmine.any(String));
+        handler(Position(0)(0).asKey());
+        handler(Position(0)(0).asKey());
+        handler(Position(0)(0).asKey());
+        handler(Position(0)(0).asKey());
+      });
+      it("should not crash the server", function() {
+        expect(function() {
+          handler(Position(0)(0).asKey());
+        }).not.toThrow();
+        expect(socket1.emit).toHaveBeenCalledWith('error', jasmine.any(String));
+      });
+      it("should not notify the other player", function() {
+        expect(function() {
+          handler(Position(0)(0).asKey());
+        }).not.toThrow();
+        expect(socket2.emit).not.toHaveBeenCalled();
+      });
     });
   });
 });
