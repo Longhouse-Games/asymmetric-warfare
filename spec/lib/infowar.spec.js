@@ -354,6 +354,49 @@ describe("infowar", function() {
     });
     endGameWithWinner(h.C.STATE);
   });
+  describe("insurgents hold any six spaces in the inner ring", function() {
+    beforeEach(function() {
+      infowar = Infowar();
+      for (var i = 0; i < Infowar.INITIAL_INSURGENTS; i++) {
+        infowar.addInsurgent(Position(0)(0));
+      }
+      infowar.grow(Position(0)(0));
+      infowar.endTurn();
+      infowar.endTurn();
+      _.times(6, function() {
+        for (var i = 0; i < h.C.NUM_CIRCLES-2; i++) {
+          infowar.insurgentMove(Position(i)(0), Position(i+1)(0));
+          infowar.endTurn();
+          infowar.endTurn();
+        }
+      });
+      expect(infowar.getPiecesAt(Position(3)(0)).length).toBe(6);
+      //Position them at 3,11, 3,0, 3,1 and 3,5, 3,6, 3,7
+      //Move 3 of them to 3,6
+      _.times(3, function() {
+        infowar.insurgentMove(Position(3)(0), Position(3)(2));
+        infowar.endTurn();
+        infowar.endTurn();
+        infowar.insurgentMove(Position(3)(2), Position(3)(4));
+        infowar.endTurn();
+        infowar.endTurn();
+        infowar.insurgentMove(Position(3)(4), Position(3)(6));
+        infowar.endTurn();
+        infowar.endTurn();
+      });
+      infowar.insurgentMove(Position(3)(0), Position(3)(11));
+      infowar.endTurn();
+      infowar.endTurn();
+      infowar.insurgentMove(Position(3)(0), Position(3)(1));
+      infowar.endTurn();
+      infowar.endTurn();
+      infowar.insurgentMove(Position(3)(6), Position(3)(5));
+      infowar.endTurn();
+      infowar.endTurn();
+      infowar.insurgentMove(Position(3)(6), Position(3)(7));
+    });
+    endGameWithWinner(h.C.INSURGENT);
+  });
   describe("insurgents hold four adjacent spaces in the inner ring", function() {
     beforeEach(function() {
       infowar = Infowar();
