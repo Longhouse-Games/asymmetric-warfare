@@ -572,6 +572,42 @@ describe("infowar", function() {
       infowar.grow(Position(0)(0));
       expect(infowar.history().length).toBe(initialHistory+1);
     });
+    describe("when there are already 15 insurgents placed/grown", function() {
+      beforeEach(function() {
+        _.times(10, function() {
+          infowar.grow(Position(0)(0));
+          infowar.endTurn();
+          infowar.endTurn();
+        });
+      });
+      it("should not permit growing a 16th insurgent", function() {
+        expect(function() {
+          infowar.grow(Position(0)(0));
+        }).toThrow("No more insurgents left!");
+      });
+    });
+    describe("with some insurgents that have been killed", function() {
+      beforeEach(function() {
+        _.times(10, function() {
+          infowar.grow(Position(0)(0));
+          infowar.endTurn();
+          infowar.endTurn();
+        });
+        _.times(h.C.NUM_CIRCLES-2, function(i) {
+          infowar.insurgentMove(Position(i)(0), Position(i+1)(0));
+          infowar.endTurn();
+          infowar.endTurn();
+        });
+        infowar.endTurn();
+        infowar.stateMove(Position(h.C.CAPITAL)(0), Position(h.C.INNER_CIRCLE)(0));
+        infowar.kill(Position(h.C.INNER_CIRCLE)(0));
+      });
+      it("should not permit growing a 16th insurgent", function() {
+        expect(function() {
+          infowar.grow(Position(0)(0));
+        }).toThrow("No more insurgents left!");
+      });
+    });
   });
 });
 return {
