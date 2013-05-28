@@ -366,7 +366,7 @@ describe("infowar", function() {
       infowar.endTurn();
       infowar.endTurn();
       _.times(6, function() {
-        for (var i = 0; i < h.C.NUM_CIRCLES-2; i++) {
+        for (var i = 0; i < h.C.INNER_CIRCLE; i++) {
           infowar.insurgentMove(Position(i)(0), Position(i+1)(0));
           infowar.endTurn();
           infowar.endTurn();
