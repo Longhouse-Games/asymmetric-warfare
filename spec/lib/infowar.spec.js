@@ -306,6 +306,32 @@ describe("infowar", function() {
     });
   });
 
+  describe("state has three pieces in the inner circle", function() {
+    var innerCircle;
+    beforeEach(function() {
+      innerCircle = Position(h.C.CAPITAL-1);
+
+      infowar = Infowar();
+      initInsurgents(infowar);
+      _.times(3, function() {
+        infowar.endTurn();
+        infowar.stateMove(Position(h.C.CAPITAL)(0), innerCircle(0));
+        infowar.endTurn();
+      });
+      infowar.endTurn();
+    });
+    it("should permit moving one of those pieces around the circle", function() {
+      expect(function() {
+        infowar.stateMove(innerCircle(0), innerCircle(2));
+      }).not.toThrow();
+    });
+    it("should not permit moving another state piece into the inner circle", function() {
+      expect(function() {
+        infowar.stateMove(Position(h.C.CAPITAL)(0), innerCircle(0));
+      }).toThrow("No more than 3 State pieces permitted in the inner circle!");
+    });
+  });
+
   var endGameWithWinner = function(winner) {
     it("should end the game", function() {
       expect(infowar.currentTurn()).toBe(undefined);
