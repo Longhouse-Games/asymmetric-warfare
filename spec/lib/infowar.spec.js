@@ -305,6 +305,7 @@ describe("infowar", function() {
       expect(entry.dest().asKey()).toBe(dest.asKey());
     });
   });
+
   var endGameWithWinner = function(winner) {
     it("should end the game", function() {
       expect(infowar.currentTurn()).toBe(undefined);
@@ -314,6 +315,7 @@ describe("infowar", function() {
       expect(infowar.winner()).toBe(winner);
     });
   };
+
   describe("state kills 12 insurgents", function() {
     beforeEach(function() {
       infowar = Infowar();
