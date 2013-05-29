@@ -567,6 +567,17 @@ describe("infowar", function() {
         expect(piece.type()).toBe(h.C.INSURGENT);
       });
     });
+    it("should permit adding at a location adjacent to an insurgent", function() {
+      infowar.grow(Position(1)(0));
+
+      expect(infowar.getPiecesAt(Position(1)(0)).length).toBe(1);
+      expect(infowar.getPiecesAt(Position(1)(0))[0].type()).toBe(h.C.INSURGENT);
+    });
+    it("should throw when adding at a location not adjacent to an insurgent", function() {
+      expect(function() {
+        infowar.grow(Position(2)(0));
+      }).toThrow("Must have an adjacent insurgent in order to grow!");
+    });
     it("should log an entry", function() {
       var initialHistory = infowar.history().length;
       infowar.grow(Position(0)(0));
