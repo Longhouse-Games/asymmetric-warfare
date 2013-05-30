@@ -43,10 +43,10 @@ describe("Ravenbridge", function() {
         }
       };
       var player = {};
-      spyOn(raven, 'broadcast').andCallThrough();
+      spyOn(socket, 'emit').andCallThrough();
       bridge.addPlayer(socket, player, Ravenbridge.metadata.roles[0].slug);
-      expect(raven.broadcast).toHaveBeenCalledWith('update', jasmine.any(Object));
-      var data = raven.broadcast.mostRecentCall.args[1];
+      expect(socket.emit).toHaveBeenCalledWith('update', jasmine.any(Object));
+      var data = socket.emit.mostRecentCall.args[1];
       expect(data.history).toBeDefined();
       expect(data.history.length).toBe(5);
       for (var i = 0; i < 5; i++) {
@@ -55,6 +55,26 @@ describe("Ravenbridge", function() {
         expect(entry.player).toBe(h.C.STATE);
         expect(entry.position).toBe(Position(h.C.CAPITAL)(0).asKey());
       }
+    });
+    describe("as state player", function() {
+      var socket;
+      // State can't see initial insurgent placements
+      beforeEach(function() {
+        infowar = Infowar();
+        _.times(5, function(i) {
+          infowar.addInsurgent(Position(0)(i));
+        });
+        socket = { emit: function() {}, on: function() {} };
+        spyOn(socket, 'emit');
+        bridge.addPlayer(socket, {gaming_id: "state"}, h.C.STATE);
+      });
+      it("should not send a history that includes the positions of the placed insurgents", function() {
+        expect(socket.emit).toHaveBeenCalled();
+        expect(socket.emit.mostRecentCall.args[0]).toBe('update');
+        var history = socket.emit.mostRecentCall.args[1];
+        console.log(history);
+        expect(history).toBeDefined();
+      });
     });
   });
   describe("receiving a message", function() {
@@ -82,9 +102,9 @@ describe("Ravenbridge", function() {
       handler({ src:Position(0)(0).asKey(), dest:Position(1)(0).asKey()});
     });
     it("should send game history", function() {
-      expect(raven.broadcast.calls.length).toBe(7);
-      expect(raven.broadcast.calls[6].args[0]).toBe('update');
-      var history = raven.broadcast.calls[6].args[1].history;
+      expect(raven.broadcast.calls.length).toBe(6);
+      expect(raven.broadcast.calls[5].args[0]).toBe('update');
+      var history = raven.broadcast.calls[5].args[1].history;
       expect(history).toBeDefined();
       expect(history.length).toBe(11);
       expect(history[10].type).toBe(h.C.MOVE);
@@ -125,10 +145,10 @@ describe("Ravenbridge", function() {
             if (message === 'interrogate') { interrogate = _handler };
           }
         };
-        spyOn(socket1, 'emit');
-        spyOn(socket2, 'emit');
         bridge.addPlayer(socket1, {}, h.C.STATE);
         bridge.addPlayer(socket2, {}, h.C.INSURGENT);
+        spyOn(socket1, 'emit');
+        spyOn(socket2, 'emit');
         spyOn(raven, 'broadcast');
 
         interrogate(Position(1)(0).asKey());
@@ -161,10 +181,10 @@ describe("Ravenbridge", function() {
             if (message === 'placeInsurgent') { placeInsurgent = _handler; };
           }
         };
-        spyOn(socket1, 'emit');
-        spyOn(socket2, 'emit');
         bridge.addPlayer(socket1, {}, h.C.STATE); //state player
         bridge.addPlayer(socket2, {}, h.C.INSURGENT); //state player
+        spyOn(socket1, 'emit');
+        spyOn(socket2, 'emit');
       });
       it("should emit an error", function() {
         placeInsurgent(Position(0)(0).asKey());
@@ -187,10 +207,10 @@ describe("Ravenbridge", function() {
             }
           }
         };
-        spyOn(socket1, 'emit');
-        spyOn(socket2, 'emit');
         bridge.addPlayer(socket1, {}, h.C.INSURGENT);
         bridge.addPlayer(socket2, {}, h.C.STATE);
+        spyOn(socket1, 'emit');
+        spyOn(socket2, 'emit');
         handler(Position(0)(0).asKey());
         handler(Position(0)(0).asKey());
         handler(Position(0)(0).asKey());
