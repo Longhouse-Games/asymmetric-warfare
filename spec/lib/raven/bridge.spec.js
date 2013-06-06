@@ -64,6 +64,7 @@ describe("Ravenbridge", function() {
         _.times(5, function(i) {
           infowar.addInsurgent(Position(0)(i));
         });
+        bridge = Ravenbridge(raven, _.map(infowar.history(), function(entry) { return entry.toDTO(); }));
         socket = { emit: function() {}, on: function() {} };
         spyOn(socket, 'emit');
         bridge.addPlayer(socket, {gaming_id: "state"}, h.C.STATE);
@@ -71,9 +72,15 @@ describe("Ravenbridge", function() {
       it("should not send a history that includes the positions of the placed insurgents", function() {
         expect(socket.emit).toHaveBeenCalled();
         expect(socket.emit.mostRecentCall.args[0]).toBe('update');
-        var history = socket.emit.mostRecentCall.args[1];
-        console.log(history);
+        var data = socket.emit.mostRecentCall.args[1];
+        var history = data.history;
         expect(history).toBeDefined();
+        _.times(5, function(i) {
+          var entry = history[i+5];
+          expect(entry.type).toBe(h.C.PLACEMENT);
+          expect(entry.player).toBe(h.C.INSURGENT);
+          expect(entry.position).toBe(null);
+        })
       });
     });
   });
