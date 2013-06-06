@@ -99,10 +99,10 @@ describe("Ravenbridge", function() {
   });
   describe("receiving a message", function() {
     var message;
-    var socket;
+    var insurgentSocket, stateSocket;
     beforeEach(function() {
       var placeInsurgent;
-      socket = {
+      insurgentSocket = {
         emit: function() {},
         on: function(message, _handler) {
           if (message === 'insurgentMove') {
@@ -112,25 +112,47 @@ describe("Ravenbridge", function() {
           }
         }
       };
+      stateSocket = {
+        emit: function() {},
+        on: function() {}
+      };
+      bridge.addPlayer(insurgentSocket, {}, h.C.INSURGENT);
+      bridge.addPlayer(stateSocket, {}, h.C.STATE);
+      placeInsurgent(Position(0)(0).asKey());
+      placeInsurgent(Position(0)(0).asKey());
+      placeInsurgent(Position(0)(0).asKey());
+      placeInsurgent(Position(0)(0).asKey());
+      placeInsurgent(Position(0)(0).asKey());
+
       spyOn(raven, 'broadcast');
-      bridge.addPlayer(socket, {}, Ravenbridge.metadata.roles[0].slug);
-      placeInsurgent(Position(0)(0).asKey());
-      placeInsurgent(Position(0)(0).asKey());
-      placeInsurgent(Position(0)(0).asKey());
-      placeInsurgent(Position(0)(0).asKey());
-      placeInsurgent(Position(0)(0).asKey());
+      spyOn(insurgentSocket, 'emit');
+      spyOn(stateSocket, 'emit');
       handler({ src:Position(0)(0).asKey(), dest:Position(1)(0).asKey()});
     });
-    it("should send game history", function() {
-      expect(raven.broadcast.calls.length).toBe(6);
-      expect(raven.broadcast.calls[5].args[0]).toBe('update');
-      var history = raven.broadcast.calls[5].args[1].history;
+    it("should send full game history to the state player", function() {
+      expect(insurgentSocket.emit.calls.length).toBe(1);
+      expect(insurgentSocket.emit.calls[0].args[0]).toBe('update');
+      var history = insurgentSocket.emit.calls[0].args[1].history;
       expect(history).toBeDefined();
       expect(history.length).toBe(11);
       expect(history[10].type).toBe(h.C.MOVE);
       expect(history[10].player).toBe(h.C.INSURGENT);
       expect(history[10].src).toBe(Position(0)(0).asKey());
+
       expect(history[10].dest).toBe(Position(1)(0).asKey());
+    });
+    it("should not send full history to state player", function() {
+      expect(stateSocket.emit.calls.length).toBe(1);
+      expect(stateSocket.emit.calls[0].args[0]).toBe('update');
+      var data = stateSocket.emit.calls[0].args[1];
+      var history = data.history;
+      console.log(history);
+      _.each(history, function(entry) {
+        if (entry.player === h.C.INSURGENT) {
+          expect(entry.masked).toBe(true);
+        }
+      });
+      expect(data.state).toBeDefined();
     });
   });
 
@@ -174,7 +196,7 @@ describe("Ravenbridge", function() {
         interrogate(Position(1)(0).asKey());
       });
       it("should transmit the response data back", function() {
-        expect(socket1.emit.calls.length).toBe(1);
+        expect(socket1.emit.calls.length).toBe(2);
         var message = socket1.emit.calls[0].args[0];
         expect(message).toBe('interrogate-result');
 
@@ -185,11 +207,11 @@ describe("Ravenbridge", function() {
         });
       });
       it("should not transmit over broadcast", function() {
-        expect(raven.broadcast.calls.length).toBe(1); // this is the 'update', interrogate should not be sent there
-        expect(raven.broadcast.calls[0].args[0]).toBe('update');
+        expect(raven.broadcast.calls.length).toBe(0);
       });
       it("should not transmit to the other player" ,function() {
-        expect(socket2.emit).not.toHaveBeenCalled();
+        expect(socket2.emit.calls.length).toBe(1); //should only be called once
+        expect(socket2.emit.calls[0].args[0]).toBe('update');
       });
     });
     describe("receiving a message that is not appropriate for the role", function() {
@@ -229,13 +251,13 @@ describe("Ravenbridge", function() {
         };
         bridge.addPlayer(socket1, {}, h.C.INSURGENT);
         bridge.addPlayer(socket2, {}, h.C.STATE);
+        handler(Position(0)(0).asKey());
+        handler(Position(0)(0).asKey());
+        handler(Position(0)(0).asKey());
+        handler(Position(0)(0).asKey());
+        handler(Position(0)(0).asKey());
         spyOn(socket1, 'emit');
         spyOn(socket2, 'emit');
-        handler(Position(0)(0).asKey());
-        handler(Position(0)(0).asKey());
-        handler(Position(0)(0).asKey());
-        handler(Position(0)(0).asKey());
-        handler(Position(0)(0).asKey());
       });
       it("should not crash the server", function() {
         expect(function() {
