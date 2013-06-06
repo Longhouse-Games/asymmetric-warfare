@@ -205,6 +205,22 @@ describe("infowar", function() {
         expect(infowar.getPiecesAt(Position(h.C.CAPITAL)(0)).length).toBe(4);
       });
     });
+    describe("with a masked history", function() {
+      var maskedHistory;
+      beforeEach(function() {
+        for (var i = 0; i < 5; i++) {
+          // Insurgent placements are masked
+          history.push(History.Placement(Infowar.INSURGENT, Position(0)(i)));
+        }
+        infowar = Infowar(history);
+        maskedHistory = infowar.history(h.C.STATE);
+      });
+      it("should throw an error", function() {
+        expect(function() {
+          infowar = Infowar(maskedHistory);
+        }).toThrow("Masked history cannot be reapplied.");
+      });
+    });
     describe("with an invalid history", function() {
       beforeEach(function() {
         for (var i = 0; i < 5; i++) {
