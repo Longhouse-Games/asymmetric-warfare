@@ -57,22 +57,22 @@ describe("Ravenbridge", function() {
       }
     });
     describe("as state player", function() {
-      var socket;
+      var socket, data;
       // State can't see initial insurgent placements
       beforeEach(function() {
         infowar = Infowar();
         _.times(5, function(i) {
-          infowar.addInsurgent(Position(0)(i));
+          infowar.addInsurgent(Position(0)(0));
         });
         bridge = Ravenbridge(raven, _.map(infowar.history(), function(entry) { return entry.toDTO(); }));
         socket = { emit: function() {}, on: function() {} };
         spyOn(socket, 'emit');
         bridge.addPlayer(socket, {gaming_id: "state"}, h.C.STATE);
-      });
-      it("should not send a history that includes the positions of the placed insurgents", function() {
         expect(socket.emit).toHaveBeenCalled();
         expect(socket.emit.mostRecentCall.args[0]).toBe('update');
-        var data = socket.emit.mostRecentCall.args[1];
+        data = socket.emit.mostRecentCall.args[1];
+      });
+      it("should not send a history that includes the positions of the placed insurgents", function() {
         var history = data.history;
         expect(history).toBeDefined();
         _.times(5, function(i) {
@@ -81,6 +81,19 @@ describe("Ravenbridge", function() {
           expect(entry.player).toBe(h.C.INSURGENT);
           expect(entry.position).toBe(null);
         })
+      });
+      it("should send visible game-state", function() {
+        var state = data.state;
+        expect(state).toBeDefined();
+        expect(state.currentTurn).toBe(h.C.INSURGENT);
+        expect(state.currentPhase).toBe(h.C.PLAYING);
+        expect(state.killedInsurgents).toBe(0);
+        var insurgents = state.visibleInsurgents;
+        expect(insurgents).toBeDefined();
+        expect(insurgents.length).toBe(5);
+        _.times(5, function(i) {
+          expect(insurgents[i]).toBe(Position(0)(0).asKey());
+        });
       });
     });
   });
