@@ -79,6 +79,14 @@ img.vertical-aligner {
   width: 1px;
 }
 
+#left_area {
+  position: absolute;
+  top: 18px;
+  left: 0px;
+  width: 288px;
+  height: 882px;
+}
+
 #side_area {
   position: relative;
   left: 695px;
@@ -868,9 +876,12 @@ ul li.separator {
 
 #history {
   position: absolute;
-  top: 50px;
-  left: 40px;
-  width: 100%;
+  top: 464px;
+  left: 5px;
+  width: 217px;
+  height: 434px;
+  font-size: 12px;
+  overflow: scroll;
 }
 .history_entry {
 }
