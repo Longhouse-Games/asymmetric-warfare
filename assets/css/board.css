@@ -883,8 +883,25 @@ ul li.separator {
   font-size: 12px;
   overflow: scroll;
 }
-.history_entry {
+.history_entry .placement {
+  color: green;
 }
+.history_entry .move {
+  color: cyan;
+}
+.history_entry .kill {
+  color: #FF2200;
+}
+.history_entry .grow {
+  color: #FF2200;
+}
+.history_entry .turn {
+  color: #FF2200;
+}
+.history_entry .end_turn {
+  color: white;
+}
+
 
 #actions {
   position: absolute;
