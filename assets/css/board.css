@@ -104,18 +104,18 @@ img.vertical-aligner {
 
 #chat {
   position: absolute;
-  top: 589px;
-  left: 69px;
-  width: 495px;
-  height: 167px;
+  top: 465px;
+  left: 110px;
+  width: 223px;
+  height: 433px;
 }
-#chat_messages {
+#chat #messages {
   height: 137px;
   overflow-y: scroll;
   overflow-x: hidden;
   padding: 3px 2px;
   border-bottom: 1px solid white;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: initial;
   color: white;
 }
@@ -123,8 +123,7 @@ img.vertical-aligner {
   color: white;
   background: rgba(0, 0, 0, 0);
   height: 25px;
-  width: 238px;
-  border-style: none;
+  width: 224px;
   outline: none;
   text-align: left;
   font-size: 16px;
