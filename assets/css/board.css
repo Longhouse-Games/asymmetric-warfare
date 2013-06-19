@@ -529,11 +529,13 @@ ul li.separator {
   position: absolute;
   width: 40px;
   height: 50px;
+  font-size: 14px;
 }
 .marker3 {
   position: absolute;
   width: 22px;
   height: 30px;
+  font-size: 12px;
 }
 
 .board .content {
