@@ -85,7 +85,7 @@ describe("insurgent turn", function() {
     it("should give 2 remaining movement points", function() {
       expect(turn.movementPoints()).toBe(2);
     });
-    it("should only list GROW and END_TURN as valid actions", function() {
+    it("should only list MOVE and END_TURN as valid actions", function() {
       var actions = turn.validActions();
       expect(actions.length).toBe(2);
       expect(_.contains(actions, InsurgentTurn.END_TURN)).toBe(true);
