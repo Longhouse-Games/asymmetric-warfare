@@ -91,6 +91,11 @@ describe("insurgent turn", function() {
       expect(_.contains(actions, InsurgentTurn.END_TURN)).toBe(true);
       expect(_.contains(actions, InsurgentTurn.MOVE)).toBe(true);
     });
+    it("should throw if a GROW is given", function() {
+      expect(function() {
+        turn.applyGrow(Grow(Position(0)(0)));
+      }).toThrow();
+    });
   });
 });
 return {
