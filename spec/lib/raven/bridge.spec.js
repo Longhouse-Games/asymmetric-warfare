@@ -169,7 +169,7 @@ describe("Ravenbridge", function() {
       beforeEach(function() {
         //Bring infowar to a state where we can issue a State Interrogation
         var infowar = Infowar();
-        _.times(5, function() { infowar.addInsurgent(Position(0)(0)); });
+        _.times(5, function(n) { infowar.addInsurgent(Position(0)(n)); });
         infowar.insurgentMove(Position(0)(0), Position(1)(0));
         for (var i = h.C.CAPITAL; i > 1; i--) {
           infowar.endTurn();
@@ -201,10 +201,8 @@ describe("Ravenbridge", function() {
         expect(message).toBe('interrogate-result');
 
         var data = socket1.emit.calls[0].args[1];
-        expect(data.length).toBe(4);
-        _.times(4, function(i) {
-          expect(data[i]).toBe("0,0");
-        });
+        expect(data.length).toBe(1);
+        expect(data[0]).toBe("0,1");
       });
       it("should not transmit over broadcast", function() {
         expect(raven.broadcast.calls.length).toBe(0);
