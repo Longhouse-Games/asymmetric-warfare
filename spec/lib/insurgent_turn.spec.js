@@ -91,6 +91,14 @@ describe("insurgent turn", function() {
       expect(_.contains(actions, InsurgentTurn.END_TURN)).toBe(true);
       expect(_.contains(actions, InsurgentTurn.MOVE)).toBe(true);
     });
+    describe("and a 1-point move", function() {
+      beforeEach(function() {
+        turn.applyMove(InsurgentMove(Position(0)(0))(Position(0)(1)));
+      });
+      it("should not mark the turn as complete", function() {
+        expect(turn.isComplete()).toBe(false);
+      });
+    });
     it("should throw if a GROW is given", function() {
       expect(function() {
         turn.applyGrow(Grow(Position(0)(0)));
