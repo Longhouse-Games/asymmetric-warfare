@@ -59,18 +59,15 @@ body {
 #dashboard {
   position: absolute;
   z-index: 10002;
-  left: 160px;
-  top: 736px;
-  width: 416px;
-  height: 44px;
-  border-radius: 15px;
+  left: 0px;
+  top: 45px;
+  width: 242px;
+  height: 109px;
 }
 .dashboard_section {
-  width: 415px;
-  height: 44px;
   color: #FFF;
   text-align: center;
-  font-size: 22px;
+  font-size: 17px;
   font-weight: bold;
 }
 img.vertical-aligner {
