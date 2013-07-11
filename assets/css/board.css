@@ -146,6 +146,22 @@ img.vertical-aligner {
   font-size: 16px;
   font-weight: initial;
 }
+::-webkit-input-placeholder {
+  font-size: 14px;
+  color: #999;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  font-size: 14px;
+  color: #999;
+}
+::-moz-placeholder {
+  font-size: 14px;
+  color: #999;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+  font-size: 14px;
+  color: #999;
+}
 
 #opponent_status {
   background-color: #005;
