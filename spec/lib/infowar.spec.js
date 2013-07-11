@@ -561,62 +561,68 @@ describe("infowar", function() {
     });
   });
   describe("grow action", function() {
+    var samePosition, adjacentPosition, badPosition;
     beforeEach(function() {
       infowar = Infowar();
-      for (var i = 0; i < Infowar.INITIAL_INSURGENTS; i++) {
-        infowar.addInsurgent(Position(0)(i));
-      }
+      infowar.addInsurgent(Position(0)(0));
+      infowar.addInsurgent(Position(0)(1));
+      infowar.addInsurgent(Position(0)(2));
+      infowar.addInsurgent(Position(0)(4)); // Can Grow next to this position
+      infowar.addInsurgent(Position(0)(4));
+      samePosition = Position(0)(4);
+      adjacentPosition = Position(0)(5);
+      badPosition = Position(1)(0);
     });
     it("should only be possible during Insurgent turn", function() {
       infowar.endTurn(); // state turn now
       expect(function() {
-        infowar.grow(Position(0)(0));
+        infowar.grow(samePosition);
       }).toThrow("It's not your turn!");
     });
     it("should add an insurgent piece at the location", function() {
-      expect(infowar.getPiecesAt(Position(0)(0)).length).toBe(1);
+      expect(infowar.getPiecesAt(samePosition).length).toBe(2);
 
-      infowar.grow(Position(0)(0));
+      infowar.grow(samePosition);
 
-      expect(infowar.getPiecesAt(Position(0)(0)).length).toBe(2);
-      _.each(infowar.getPiecesAt(Position(0)(0)), function(piece) {
+      expect(infowar.getPiecesAt(samePosition).length).toBe(3);
+      _.each(infowar.getPiecesAt(samePosition), function(piece) {
         expect(piece.type()).toBe(h.C.INSURGENT);
       });
     });
     it("should permit adding at a location adjacent to an insurgent", function() {
-      infowar.grow(Position(1)(0));
+      infowar.grow(adjacentPosition);
 
-      expect(infowar.getPiecesAt(Position(1)(0)).length).toBe(1);
-      expect(infowar.getPiecesAt(Position(1)(0))[0].type()).toBe(h.C.INSURGENT);
+      expect(infowar.getPiecesAt(adjacentPosition).length).toBe(1);
+      expect(infowar.getPiecesAt(adjacentPosition)[0].type()).toBe(h.C.INSURGENT);
     });
-    it("should throw when adding at a location not adjacent to an insurgent", function() {
+    it("should throw when adding at a location not adjacent to a space with two insurgents", function() {
       expect(function() {
-        infowar.grow(Position(2)(0));
-      }).toThrow("Must have an adjacent insurgent in order to grow!");
+        infowar.grow(badPosition);
+      }).toThrow("Must have two adjacent insurgents in order to grow!");
     });
     it("should log an entry", function() {
       var initialHistory = infowar.history().length;
-      infowar.grow(Position(0)(0));
+      infowar.grow(samePosition);
       expect(infowar.history().length).toBe(initialHistory+1);
     });
     describe("when there are already 15 insurgents placed/grown", function() {
       beforeEach(function() {
         _.times(10, function() {
-          infowar.grow(Position(0)(0));
+          infowar.grow(samePosition);
           infowar.endTurn();
           infowar.endTurn();
         });
       });
       it("should not permit growing a 16th insurgent", function() {
         expect(function() {
-          infowar.grow(Position(0)(0));
+          infowar.grow(samePosition);
         }).toThrow("No more insurgents left!");
       });
     });
     describe("with some insurgents that have been killed", function() {
       beforeEach(function() {
         _.times(10, function() {
-          infowar.grow(Position(0)(0));
+          infowar.grow(samePosition);
           infowar.endTurn();
           infowar.endTurn();
         });
@@ -631,7 +637,7 @@ describe("infowar", function() {
       });
       it("should not permit growing a 16th insurgent", function() {
         expect(function() {
-          infowar.grow(Position(0)(0));
+          infowar.grow(samePosition);
         }).toThrow("No more insurgents left!");
       });
     });
