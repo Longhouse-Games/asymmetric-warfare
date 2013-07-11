@@ -76,12 +76,32 @@ img.vertical-aligner {
   width: 1px;
 }
 
+.leftslot1 {
+  position: absolute;
+  top: 181px;
+  left: 0px;
+  width: 183px;
+  height: 70px;
+}
+
+.leftslot2 {
+  position: absolute;
+  top: 278px;
+  left: 0px;
+  height: 70px;
+  width: 175px;
+}
+
 #left_area {
   position: absolute;
   top: 18px;
   left: 0px;
   width: 288px;
   height: 882px;
+}
+
+.status_count {
+  font-size: 12px;
 }
 
 #side_area {
