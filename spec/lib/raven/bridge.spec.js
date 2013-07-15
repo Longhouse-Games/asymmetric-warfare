@@ -1,4 +1,4 @@
-define(['underscore', 'lib/helpers', 'lib/infowar', 'lib/raven/bridge'], function(_, h, Infowar, Ravenbridge) {
+define(['underscore', 'lib/helpers', 'lib/asymmetric_warfare', 'lib/raven/bridge'], function(_, h, AsymmetricWarfare, Ravenbridge) {
 var Position = h.Position;
 
 describe("Ravenbridge", function() {
@@ -22,8 +22,8 @@ describe("Ravenbridge", function() {
       expect(metadata).toBeDefined();
     });
     it("should describe the properties", function() {
-      expect(metadata.name).toBe("Infowar");
-      expect(metadata.slug).toBe("infowar");
+      expect(metadata.name).toBe("Asymmetric Warfare");
+      expect(metadata.slug).toBe("asymmetric-warfare");
       expect(metadata.roles).toBeDefined();
       expect(metadata.roles.length).toBe(2);
       expect(metadata.roles[0].slug).toBe(h.C.INSURGENT);
@@ -60,11 +60,11 @@ describe("Ravenbridge", function() {
       var socket, data;
       // State can't see initial insurgent placements
       beforeEach(function() {
-        infowar = Infowar();
+        asymwar = AsymmetricWarfare();
         _.times(5, function(i) {
-          infowar.addInsurgent(Position(0)(0));
+          asymwar.addInsurgent(Position(0)(0));
         });
-        bridge = Ravenbridge(raven, _.map(infowar.history(), function(entry) { return entry.toDTO(); }));
+        bridge = Ravenbridge(raven, _.map(asymwar.history(), function(entry) { return entry.toDTO(); }));
         socket = { emit: function() {}, on: function() {} };
         spyOn(socket, 'emit');
         bridge.addPlayer(socket, {gaming_id: "state"}, h.C.STATE);
@@ -167,19 +167,19 @@ describe("Ravenbridge", function() {
     describe("receiving a message that has response data", function() {
       var interrogate;
       beforeEach(function() {
-        //Bring infowar to a state where we can issue a State Interrogation
-        var infowar = Infowar();
-        _.times(5, function(n) { infowar.addInsurgent(Position(0)(n)); });
-        infowar.insurgentMove(Position(0)(0), Position(1)(0));
+        //Bring asymwar to a state where we can issue a State Interrogation
+        var asymwar = AsymmetricWarfare();
+        _.times(5, function(n) { asymwar.addInsurgent(Position(0)(n)); });
+        asymwar.insurgentMove(Position(0)(0), Position(1)(0));
         for (var i = h.C.CAPITAL; i > 1; i--) {
-          infowar.endTurn();
-          infowar.stateMove(Position(i)(0), Position(i-1)(0));
-          infowar.endTurn();
+          asymwar.endTurn();
+          asymwar.stateMove(Position(i)(0), Position(i-1)(0));
+          asymwar.endTurn();
         }
-        infowar.endTurn();
+        asymwar.endTurn();
         //State can issue Interrogation now
 
-        bridge = Ravenbridge(raven, _.map(infowar.history(), function(entry) { return entry.toDTO(); }));
+        bridge = Ravenbridge(raven, _.map(asymwar.history(), function(entry) { return entry.toDTO(); }));
 
         socket1 = {
           emit: function() {},

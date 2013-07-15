@@ -63,44 +63,44 @@ describe("History", function() {
       expect(entry.position().asKey()).toBe(Position(0)(0).asKey());
     });
     describe("apply", function() {
-      var infowar;
+      var asymwar;
       var position = Position(0)(0);
       beforeEach(function() {
-        infowar = {
+        asymwar = {
           addState: function(position) {
           },
           addInsurgent: function(position) {
           }
         };
-        spyOn(infowar, 'addState');
-        spyOn(infowar, 'addInsurgent');
+        spyOn(asymwar, 'addState');
+        spyOn(asymwar, 'addInsurgent');
       });
 
       it("should apply for state", function() {
         var entry = History.Placement(h.C.STATE, position);
-        entry.apply(infowar);
-        expect(infowar.addState).toHaveBeenCalled();
-        expect(infowar.addState.calls.length).toEqual(1);
-        expect(infowar.addState.calls[0].args[0]).toBe(position);
+        entry.apply(asymwar);
+        expect(asymwar.addState).toHaveBeenCalled();
+        expect(asymwar.addState.calls.length).toEqual(1);
+        expect(asymwar.addState.calls[0].args[0]).toBe(position);
       });
       it("should apply for insurgents", function() {
         var entry = History.Placement(h.C.INSURGENT, position);
-        entry.apply(infowar);
-        expect(infowar.addInsurgent).toHaveBeenCalled();
-        expect(infowar.addInsurgent.calls.length).toEqual(1);
-        expect(infowar.addInsurgent.calls[0].args[0]).toBe(position);
+        entry.apply(asymwar);
+        expect(asymwar.addInsurgent).toHaveBeenCalled();
+        expect(asymwar.addInsurgent.calls.length).toEqual(1);
+        expect(asymwar.addInsurgent.calls[0].args[0]).toBe(position);
       });
     });
   });
   var behaves_like_entry = function(options) {
-    var type, player, args, constructor, infowarMethod, entry, dto;
+    var type, player, args, constructor, asymwarMethod, entry, dto;
     beforeEach(function() {
       type = options.type;
       player = options.player;
       args = [player];
       args = args.concat(options.args || []);
       func = options.constructor;
-      infowarMethod = options.infowarMethod;
+      asymwarMethod = options.asymwarMethod;
       dto = options.dto || {};
       entry = func.apply(History, args);
     });
@@ -124,15 +124,15 @@ describe("History", function() {
       expect(entry.player()).toBe(player);
     });
     describe("apply", function() {
-      var infowar;
+      var asymwar;
       beforeEach(function() {
-        infowar = {};
-        infowar[infowarMethod] = function() {};
-        spyOn(infowar, infowarMethod);
+        asymwar = {};
+        asymwar[asymwarMethod] = function() {};
+        spyOn(asymwar, asymwarMethod);
       });
       it("should apply", function() {
-        entry.apply(infowar);
-        expect(infowar[infowarMethod]).toHaveBeenCalled();
+        entry.apply(asymwar);
+        expect(asymwar[asymwarMethod]).toHaveBeenCalled();
       });
     });
   };
@@ -147,7 +147,7 @@ describe("History", function() {
       player: h.C.STATE,
       args: [Position(h.C.CAPITAL)(0)],
       constructor: History.Kill,
-      infowarMethod: "kill",
+      asymwarMethod: "kill",
       dto: { position: position.asKey() }
     });
     it("should support a position", function() {
@@ -167,7 +167,7 @@ describe("History", function() {
       player: h.C.INSURGENT,
       args: [Position(0)(0)],
       constructor: History.Grow,
-      infowarMethod: "grow",
+      asymwarMethod: "grow",
       dto: { position: position.asKey() }
     });
     it("should support a position", function() {
@@ -198,14 +198,14 @@ describe("History", function() {
       expect(entry.player()).toBe(h.C.STATE);
     });
     describe("apply", function() {
-      var infowar;
+      var asymwar;
       beforeEach(function() {
-        infowar = { endTurn: function() { } };
-        spyOn(infowar, 'endTurn');
+        asymwar = { endTurn: function() { } };
+        spyOn(asymwar, 'endTurn');
       });
       it("should apply", function() {
-        entry.apply(infowar);
-        expect(infowar.endTurn).toHaveBeenCalled();
+        entry.apply(asymwar);
+        expect(asymwar.endTurn).toHaveBeenCalled();
       });
     });
   });
@@ -245,32 +245,32 @@ describe("History", function() {
       expect(entry.dest().asKey()).toBe(dest.asKey());
     });
     describe("apply", function() {
-      var infowar;
+      var asymwar;
       beforeEach(function() {
-        infowar = {
+        asymwar = {
           stateMove: function(position) {
           },
           insurgentMove: function(position) {
           }
         };
-        spyOn(infowar, 'stateMove');
-        spyOn(infowar, 'insurgentMove');
+        spyOn(asymwar, 'stateMove');
+        spyOn(asymwar, 'insurgentMove');
       });
       it("should apply for the state", function() {
         var entry = History.Move(h.C.STATE, src, dest);
-        entry.apply(infowar);
-        expect(infowar.stateMove).toHaveBeenCalled();
-        expect(infowar.stateMove.calls.length).toEqual(1);
-        expect(infowar.stateMove.calls[0].args[0].asKey()).toBe(src.asKey());
-        expect(infowar.stateMove.calls[0].args[1].asKey()).toBe(dest.asKey());
+        entry.apply(asymwar);
+        expect(asymwar.stateMove).toHaveBeenCalled();
+        expect(asymwar.stateMove.calls.length).toEqual(1);
+        expect(asymwar.stateMove.calls[0].args[0].asKey()).toBe(src.asKey());
+        expect(asymwar.stateMove.calls[0].args[1].asKey()).toBe(dest.asKey());
       });
       it("should apply for insurgents", function() {
         var entry = History.Move(h.C.INSURGENT, src, dest);
-        entry.apply(infowar);
-        expect(infowar.insurgentMove).toHaveBeenCalled();
-        expect(infowar.insurgentMove.calls.length).toEqual(1);
-        expect(infowar.insurgentMove.calls[0].args[0].asKey()).toBe(src.asKey());
-        expect(infowar.insurgentMove.calls[0].args[1].asKey()).toBe(dest.asKey());
+        entry.apply(asymwar);
+        expect(asymwar.insurgentMove).toHaveBeenCalled();
+        expect(asymwar.insurgentMove.calls.length).toEqual(1);
+        expect(asymwar.insurgentMove.calls[0].args[0].asKey()).toBe(src.asKey());
+        expect(asymwar.insurgentMove.calls[0].args[1].asKey()).toBe(dest.asKey());
       });
     });
   });

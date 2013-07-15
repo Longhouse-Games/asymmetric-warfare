@@ -28,7 +28,7 @@ requirejs(
       './spec/lib/pieces.spec',
       './spec/lib/constants.spec',
       './spec/lib/history.spec',
-      './spec/lib/infowar.spec',
+      './spec/lib/asymmetric_warfare.spec',
       './spec/lib/raven/bridge.spec',
       './spec/lib/kill.spec',
       './spec/lib/interrogate.spec',

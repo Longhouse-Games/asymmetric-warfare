@@ -1,8 +1,8 @@
 {
-  "name": "infowar",
+  "name": "asymmetric-warfare",
   "author": "Longhouse Games",
   "version": "0.1.0",
-  "description": "InfoWar, a game by Michael Freeman",
+  "description": "Asymmetric Warfare, a game by Michael Freeman",
   "main": "app.js",
   "scripts": {
     "test": "node runner.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/Longhouse-Games/infowar.git"
+    "url": "git://github.com/Longhouse-Games/asymmetric-warfare.git"
   },
   "license": "BSD",
   "engines": {
