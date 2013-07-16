@@ -549,6 +549,29 @@ describe("asymwar", function() {
       expect(positions.length).toBe(1);
       expect(positions[0].asKey()).toBe(Position(0)(1).asKey());
     });
+    it("should reveal all insurgent pieces connected to the target", function() {
+      asymwar = AsymmetricWarfare();
+      asymwar.addInsurgent(Position(0)(0));
+      asymwar.addInsurgent(Position(0)(0));
+      asymwar.addInsurgent(Position(0)(1));
+      asymwar.addInsurgent(Position(0)(2));
+      asymwar.addInsurgent(Position(0)(6));
+      asymwar.grow(Position(0)(11));
+      asymwar.endTurn();
+
+      for (var i = h.C.CAPITAL; i > 0; i--) {
+        asymwar.stateMove(Position(i)(0), Position(i-1)(0));
+        asymwar.endTurn();
+        asymwar.endTurn(); // insurgent turn
+      }
+      // State piece at 0,0 now
+      // Should be two pieces at 0,0, and one at 0,1
+      var positions = asymwar.interrogate(Position(0)(0));
+      expect(positions.length).toBe(3);
+      expect(positions[0].asKey()).toBe(Position(0)(1).asKey());
+      expect(positions[1].asKey()).toBe(Position(0)(11).asKey());
+      expect(positions[2].asKey()).toBe(Position(0)(2).asKey());
+    });
     it("should log an entry", function() {
       for (var i = h.C.CAPITAL; i > 0; i--) {
         asymwar.stateMove(Position(i)(0), Position(i-1)(0));

@@ -201,7 +201,7 @@ describe("Ravenbridge", function() {
         expect(message).toBe('interrogate-result');
 
         var data = socket1.emit.calls[0].args[1];
-        expect(data.length).toBe(1);
+        expect(data.length).toBe(4);
         expect(data[0]).toBe("0,1");
       });
       it("should not transmit over broadcast", function() {
