@@ -541,11 +541,10 @@ ul li.separator {
 }
 #marker4-0 {
   position: absolute;
-  left: 274px;
-  top: 274px;
+  left: 277px;
+  top: 288px;
   width: 52px;
-  height: 52px;
-  font-size: 10px;
+  height: 34px;
 }
 
 .marker0 {
@@ -562,13 +561,32 @@ ul li.separator {
   position: absolute;
   width: 40px;
   height: 50px;
-  font-size: 14px;
 }
 .marker3 {
   position: absolute;
   width: 22px;
   height: 30px;
-  font-size: 12px;
+}
+
+img.piece {
+  width: 15px;
+  height: 15px;
+}
+.marker0 img.piece {
+  width: 25px;
+  height: 25px;
+}
+.marker1 img.piece {
+  width: 23px;
+  height: 23px;
+}
+.marker2 img.piece {
+  width: 20px;
+  height: 20px;
+}
+.marker3 img.piece {
+  width: 17px;
+  height: 17px;
 }
 
 .board .content {

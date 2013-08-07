@@ -34,10 +34,15 @@
     <script id="piecemarker" type="text/html">
       <div id="marker{{circle}}-{{rank}}" class="marker{{circle}} rotate{{rotate}}{{half}}">
         <div class="content">
-          <img src="images/transparent_pixel.gif" class="vertical-aligner"/>
           <span class="pieces"></span>
         </div>
       </div>
+    </script>
+    <script id="piece" type="text/html">
+      <img src="images/piece_{{type}}.png" class="piece"/>
+    </script>
+    <script id="ghost" type="text/html">
+      <img src="images/piece_insurgent_ghost.png" class="piece ghost"/>
     </script>
   </head>
   <body>
