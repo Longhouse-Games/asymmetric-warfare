@@ -48,11 +48,17 @@ body {
 
 #table_area {
   position: relative;
-  min-width: 1028px;
-  width: 1028px;
+  min-width: 1250px;
+  width: 1250px;
   min-height: 900px;
   height: 900px;
-  background: top left no-repeat url("../images/background.jpg");
+}
+body.insurgent #table_area {
+  background: top left no-repeat url("../images/background_insurgent.jpg");
+  background-size: 100%;
+}
+body.state #table_area {
+  background: top left no-repeat url("../images/background_state.jpg");
   background-size: 100%;
 }
 
@@ -61,8 +67,8 @@ body {
   z-index: 10002;
   left: 0px;
   top: 45px;
-  width: 242px;
-  height: 109px;
+  width: 369px;
+  height: 108px;
 }
 .dashboard_section {
   color: #FFF;
@@ -76,21 +82,61 @@ img.vertical-aligner {
   width: 1px;
 }
 
+.leftslot0 {
+  position: absolute;
+  top: 45px;
+  left: 25px;
+  width: 373px;
+  height: 109px;
+}
 .leftslot1 {
   position: absolute;
   top: 181px;
-  left: 0px;
-  width: 183px;
+  left: 25px;
+  width: 269px;
   height: 70px;
 }
 
 .leftslot2 {
   position: absolute;
-  top: 278px;
-  left: 0px;
-  height: 70px;
-  width: 175px;
+  top: 277px;
+  left: 25px;
+  height: 71px;
+  width: 260px;
 }
+
+body.insurgent #logo {
+  background: top left no-repeat url("../images/logo_insurgent.png");
+}
+body.state #logo {
+  background: top 5px left 1px no-repeat url("../images/logo_state.png");
+}
+
+#killed_insurgents {
+  background: center left 10px no-repeat url("../images/insurgents_killed.png");
+}
+#killed_insurgents #count {
+  position: absolute;
+  top: 41px;
+  left: 150px;
+  height: 10px;
+  width: 30px;
+  font-size: 20px;
+}
+
+#reserve_insurgents {
+  background: center left 10px no-repeat url("../images/insurgents_available.png");
+}
+#reserve_insurgents #count {
+  position: absolute;
+  top: 42px;
+  left: 210px;
+  height: 10px;
+  width: 30px;
+  font-size: 20px;
+}
+
+
 
 #left_area {
   position: absolute;
@@ -106,10 +152,10 @@ img.vertical-aligner {
 
 #side_area {
   position: relative;
-  left: 695px;
+  left: 852px;
   top: 0px;
   height: 800px;
-  width: 585px;
+  width: 399px;
 }
 
 .side_selector {
@@ -333,14 +379,14 @@ ul li.separator {
 }
 #selection_wrapper {
   position: absolute !important;
-  left: 212px;
+  left: 323px;
   top: 20px;
   width: 596px;
   height: 596px;
 }
 .board-position {
   position: absolute !important;
-  left: 212px;
+  left: 323px;
   top: 20px;
   width: 596px;
   height: 596px;
@@ -939,12 +985,14 @@ img.piece {
 }
 .action {
   display: none;
+/*
   float: left;
-  margin-right: 10px;
   padding: 5px;
+  margin-right: 10px;
   text-align: center;
   color: rgb(163, 241, 251);
   font-size: 24px;
+*/
 }
 .action:hover {
   color: rgb(63, 141, 251);
@@ -960,25 +1008,76 @@ img.piece {
 
 #actions #grow, #kill {
   position: absolute;
-  top: 136px;
-  left: 104px;
-  height: 58px;
-  width: 172px;
+  top: 135px;
+  left: 60px;
+  height: 70px;
+  width: 264px;
+}
+#actions .action_img {
+  position: absolute;
+  margin: auto;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+#grow .action_img {
+  height: 20px;
+  width: 107px;
+  background: top left no-repeat url('../images/grow.png');
+}
+#grow:hover .action_img {
+  background: top left no-repeat url('../images/grow-hover.png');
+}
+#grow.disabled .action_img {
+  background: top left no-repeat url('../images/grow-disabled.png');
+}
+#end_turn .action_img {
+  height: 20px;
+  width: 205px;
+  background: top left no-repeat url('../images/end_turn.png');
+}
+#end_turn:hover .action_img {
+  background: top left no-repeat url('../images/end_turn-hover.png');
+}
+#end_turn.disabled .action_img {
+  background: top left no-repeat url('../images/end_turn-disabled.png');
+}
+#kill .action_img {
+  height: 20px;
+  width: 87px;
+  background: top left no-repeat url('../images/kill.png');
+}
+#kill:hover .action_img {
+  background: top left no-repeat url('../images/kill-hover.png');
+}
+#kill.disabled .action_img {
+  background: top left no-repeat url('../images/kill-disabled.png');
+}
+#interrogate .action_img {
+  height: 18px;
+  width: 244px;
+  background: top left no-repeat url('../images/interrogate.png');
+}
+#interrogate:hover .action_img {
+  background: top left no-repeat url('../images/interrogate-hover.png');
+}
+#interrogate.disabled .action_img {
+  background: top left no-repeat url('../images/interrogate-disabled.png');
 }
 
-#actions #turn {
+#actions #interrogate {
   position: absolute;
   top: 233px;
-  left: 113px;
-  width: 163px;
-  height: 58px;
-  font-size: 21px;
+  left: 68px;
+  width: 256px;
+  height: 69px;
 }
 
 #actions #end_turn {
   position: absolute;
   top: 330px;
-  left: 114px;
-  width: 161px;
-  height: 60px;
+  left: 67px;
+  width: 256px;
+  height: 70px;
 }
