@@ -1,5 +1,6 @@
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/rules.css" />
     <!--[if IE]>
     <link rel="stylesheet" href="css/ie.css" />
@@ -7,52 +8,80 @@
     <!--[if lt IE 9]>
     <script src="//ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
     <![endif]-->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <title>Rules - Asymmetric Warfare</title>
   </head>
-  <body>
-    <h1>Guerrilla Checkers</h1>
-    <p>By Brian Train</p>
+  <body class="container">
+    <h1>Asymmetric Warfare</h1>
+    <p>By Michael Freeman</p>
     <p>
-      <h2>Table of Contents:</h2>
-      <ol>
-        <li><a href="#roles">Roles</a></li>
-        <li><a href="#winning">Winning</a></li>
-        <li><a href="#state_movement">State movement</a></li>
-        <li><a href="#guerrilla_movement">Guerrilla movement</a></li>
-      </ol>
+      <h2>Introduction</h2>
+      This game depicts, in a very abstract way, the essence of insurgent warfare. The game is for two players, the State (representing the existing government or leadership of a country or organization) and the Insurgent (representing the opposition to that government or leadership). The State has powerful forces but less information; the Insurgent has complete information but little actual power. Whichever side overcomes its disadvantage wins (the State by gaining information on the Insurgents and killing them; the Insurgents by penetrating to the centre of State power).
     </p>
     <p>
-      <h2><a id="roles">Roles:</a></h2>
+      <h2>Roles</h2>
       <ul>
         <li>
-          Guerrillas: They receive 66 pieces and place two pieces each turn.
+          Insurgents: <img src="images/piece_insurgent.png"/>
         </li>
         <li>
-          The State: They have six pieces, all of which are on the board at the start.
+          State: <img src="images/piece_state.png"/>
         </li>
       </ul>
-      <img src="images/rules/pieces_guerrilla.png">
-      <img src="images/rules/pieces_soldier.png">
     </p>
     <p>
-      <h2><a id="winning">Victory</a></h2>
-      The player who clears the board of all enemy pieces at the end of his turn wins. The Guerrilla player loses if he runs out of stones.
+      <h2>Concepts</h2>
+      <p>Hidden information: For the whole game, the Insurgent has complete visibility into all spaces on the map. The State can see only those spaces on the map that contain his own pieces, contain two or more Insurgent pieces, or are temporarily visible by “interrogating” an Insurgent piece.</p>
+      <p>The map: The map is in the shape of four concentric circles, each divided into 12 spaces for a total of 48 spaces. Each space is marked with coordinates: a letter from A to D denoting which ring it is in, and a space number from 1 to 12. An “adjacent space” is one that shares a border with another space; therefore, a space could be adjacent to from four to six spaces, depending on where it is on the map.  The single central space is called the Capital, and the ring of 12 spaces surrounding it is called the Inner Circle.</p>
+      <p>Winning: The aim of the Insurgent is to place sufficient of his pieces in the Inner Circle that he is deemed to have captured the Capital. The aim of the State player is to eliminate 12 or more Insurgent pieces, making an Insurgent victory impossible.</p>
     </p>
     <p>
-      <h2><a id="state_movement">State Movement:</a></h2>
-      The State player moves one checker per turn, one square diagonally as a King in regular checkers, or makes captures by jumping over the point between two squares. He is not forced to capture if he does not want to, but if he does he must take all possible captures. Captured stones are removed from the board.
+      <h2>Setup</h2>
+      All five State pieces begin the game in the Capital. The Insurgent starts with five pieces, grouped as he likes in any space or spaces of the outermost ring, highlighted in green: <img src="images/rules/setup.png" class="screenshot"/>
+    </p>
+    <p>
+      <h2>Playing the Game</h2>
       <p>
-        <img src="images/rules/state_moves.jpeg">
+        The game is played in player-turns. The Insurgent goes first, followed by the State player. If a player wishes he can always PASS – he does nothing and the other player begins his turn.
+      </p>
+
+      <p>
+        <h3>Insurgent's turn</h3>
+        <p>
+          The Insurgent can do both of these actions in his turn, once each:
+          <ul>
+            <li>GROW – Any space where the Insurgent has two or more of his pieces may Grow another piece. The new piece is placed either in that space or any adjacent space. The Insurgent can grow at most one piece per game turn. The green highlighted squares indicate where the grown insurgent may be placed: <img src="images/rules/grow.png" class="screenshot"/></li>
+            <li>MOVE – he may move one of his pieces two spaces, or two pieces one space each (from one space into any adjacent space). Moving a piece across a circle boundary (that is, directly towards or away from the Capital) counts as a two-space move. He may not enter the Capital.  If he moves a piece into a space where there already is one or more Insurgent pieces, or there is a State piece in it, then all pieces in that space are revealed to the State player, and that space remains visible to the State player for as long as it has at least two Insurgent pieces in it (or at least one State piece).</li>
+          </ul>
+          The Insurgent may Grow before Moving, or vice versa if he wants. He does not have to do both actions, but he may not Move, Grow, Move.
+        </p>
+      </p>
+      <p>
+        <h3>The State's turn</h3>
+        <p>
+          The State player can do both of these actions in his turn, once each.
+          <ul>
+            <li>MOVE - he may move one of his pieces two spaces, or two pieces one space each (from one space into any adjacent space). Moving a piece across a circle boundary (that is, directly towards or away from the Capital, or into/out of the Capital) counts as a two-space move.. He may enter the Capital. There may be no more than THREE State pieces in the Inner Circle at any one time. If he moves a piece into a space that contains one or more Insurgent pieces, then all pieces in that space are revealed to the State player.</li>
+            <li>KILL or INTERROGATE – If a State piece moves into a space that contains one or more Insurgent pieces, or starts the turn in such a space, the State player can choose to either Kill or Interrogate the Insurgent pieces there (he can also choose to leave them alone: what’s in the space will still be visible but the Insurgent piece(s) is/are not otherwise affected). 
+              <ul>
+                <li>If he chooses to Kill, then all Insurgent pieces in that space are immediately removed from the game.</li>
+                <li>If he chooses to Interrogate, then all Insurgents connected to the interrogate insurgent are revealed to him for one turn. In this image, the State piece to the left of the Capital has interrogated the insurgent occupying the same space. All connected insurgents have been revealed, and are shaded in grey. These grey markers will remain until the square is explored by the State player (note that the insurgents may have moved on already). <img src="images/rules/interrogate.png" class="screenshot"/></li>
+              </ul>
+            </li>
+          </ul>
+          The State player may Kill/Interrogate before Moving, or vice versa if he wants. He does not have to do both actions, but he may not Move, Kill/Interrogate, Move.
+        </p>
       </p>
     </p>
     <p>
-      <h2><a id="guerrilla_movement">Guerrilla Movement:</a></h2>
-      The Guerrilla player does not move his pieces. Instead, he places two and only two stones per turn on the board, on the points (intersections) of the squares. The first stone must be orthogonally adjacent to any stone on the board; the second stone must be orthogonally adjacent to the first stone placed. He may not place stones on the board edge points. He captures an enemy checker by surrounding it (i.e. having a stone, or a board edge point, on each of the four points of the square the checker occupies – note this makes the edge of the board very dangerous for the State player). The checker is removed from the board.
-      <p>
-        <img src="images/rules/guerrilla_moves.jpeg">
-      </p>
-      <p>
-        <img src="images/rules/edge_captures.jpeg">
-      </p>
+      <h2>Winning the Game</h2>
+      The Insurgent wins by capturing the Capital. This is accomplished by having, at the end of any his player-turns, Insurgent pieces occupying either:
+      <ul>
+        <li>four connected spaces in the Inner Circle (that is, there are at least four Insurgentoccupied spaces in the Inner Circle that also share a border with one or two other Insurgent-occupied spaces in the Inner Circle), or</li>
+        <li>any six of the twelve spaces of the Inner Circle.</li>
+      </ul>
+      The State player wins by killing 12 Insurgent pieces (making an Insurgent victory impossible).
     </p>
   </body>
 </html>
