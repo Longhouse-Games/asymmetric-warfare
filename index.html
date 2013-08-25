@@ -20,6 +20,12 @@
     <script id="space" type="text/html">
       <area shape="circle" coords="0,0,10" class="{{class}}" id="{{ id }}">
     </script>
+    <script id="chat_message" type="text/html">
+      <div class="chat_message {{role}}">
+        <span class="name">{{user}}</span>
+        {{message}}
+      </div>
+    </script>
     <script id="history_entry" type="text/html">
       <div class="history_entry">
         <span class="text {{type}}">{{text}}</span>
@@ -165,7 +171,7 @@
           </div>
         </div>
         <div id="chat">
-          <div id="messages">
+          <div id="chat_messages">
           </div>
           <input type="text" id="chat_input" placeholder="Send a message here..."/>
         </div>

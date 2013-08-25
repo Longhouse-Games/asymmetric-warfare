@@ -81,6 +81,16 @@ img.vertical-aligner {
   height: 100%;
   width: 1px;
 }
+.chat_message span {
+  padding-right: 15px;
+  color: red;
+}
+.chat_message.insurgent span {
+  color: rgb(253, 163, 68);
+}
+.chat_message.state span {
+  color: rgb(89, 201, 255);
+}
 
 .leftslot0 {
   position: absolute;
@@ -172,7 +182,7 @@ body.state #logo {
   width: 223px;
   height: 433px;
 }
-#chat #messages {
+#chat_messages {
   height: 137px;
   overflow-y: scroll;
   overflow-x: hidden;
