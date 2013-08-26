@@ -398,6 +398,23 @@ describe("asymwar", function() {
     });
     endGameWithWinner(h.C.STATE);
   });
+  describe("insurgents have only one insurgent on the board", function() {
+    beforeEach(function() {
+      asymwar = AsymmetricWarfare();
+      for (var i = 1; i < AsymmetricWarfare.INITIAL_INSURGENTS; i++) {
+        asymwar.addInsurgent(Position(0)(0));
+      }
+      asymwar.addInsurgent(Position(0)(1));
+      asymwar.endTurn();
+      for (i = h.C.CAPITAL; i > 0; i--) {
+        asymwar.stateMove(Position(i)(0), Position(i-1)(0));
+        asymwar.endTurn();
+        asymwar.endTurn();
+      }
+      asymwar.kill(Position(0)(0));
+    });
+    endGameWithWinner(h.C.STATE);
+  });
   describe("insurgents hold any six spaces in the inner ring", function() {
     beforeEach(function() {
       asymwar = AsymmetricWarfare();
