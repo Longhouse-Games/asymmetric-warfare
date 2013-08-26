@@ -179,7 +179,7 @@ body.state #logo {
   position: absolute;
   top: 465px;
   left: 110px;
-  width: 223px;
+  width: 259px;
   height: 433px;
 }
 #chat_messages {
@@ -196,7 +196,7 @@ body.state #logo {
   color: white;
   background: rgba(0, 0, 0, 0);
   height: 25px;
-  width: 224px;
+  width: 100%;
   outline: none;
   text-align: left;
   font-size: 16px;
