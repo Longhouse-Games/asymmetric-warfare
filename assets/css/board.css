@@ -961,10 +961,10 @@ img.piece {
 #history {
   position: absolute;
   top: 464px;
-  left: 5px;
-  width: 217px;
+  left: 25px;
+  width: 261px;
   height: 434px;
-  font-size: 12px;
+  font-size: 14px;
   overflow: scroll;
 }
 .history_entry .placement {
