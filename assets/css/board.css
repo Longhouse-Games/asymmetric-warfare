@@ -391,6 +391,20 @@ ul li.separator {
 .board {
   z-index: 100;
 }
+#notification {
+  position: absolute;
+  left: 323px;
+  width: 596px;
+  text-align: center;
+  font-size: 18px;
+  top: 625px;
+}
+body.insurgent #notification {
+  color: rgb(65, 186, 254);
+}
+body.state #notification {
+  color: rgb(252, 128, 52);
+}
 #selection_wrapper {
   position: absolute !important;
   left: 323px;
