@@ -258,6 +258,10 @@ body.state #logo {
   background: center center no-repeat url('../images/sound_off.svg');
   background-size: 25px 25px;
 }
+#history_control {
+  background: center center no-repeat url('../images/history_log.svg');
+  background-size: 25px 25px;
+}
 
 .close_button {
   position: absolute;
@@ -959,6 +963,7 @@ img.piece {
 }
 
 #history {
+  visibility: hidden;
   position: absolute;
   top: 464px;
   left: 25px;
