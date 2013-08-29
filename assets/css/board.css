@@ -71,6 +71,7 @@ body.state #table_area {
   height: 108px;
 }
 .dashboard_section {
+  height: 100%;
   color: #FFF;
   text-align: center;
   font-size: 17px;
