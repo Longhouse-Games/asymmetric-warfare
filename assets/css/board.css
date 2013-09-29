@@ -77,6 +77,32 @@ body.state #table_area {
   font-size: 17px;
   font-weight: bold;
 }
+
+#status #setup {
+  display: none;
+}
+#status.setup #setup {
+  display: block;
+  height: 100%;
+}
+#status.your_move {
+  background: top left no-repeat url("../images/your_move.png");
+  background-size: 100%;
+  position: absolute;
+  height: 95px;
+  width: 189px;
+  left: 139px;
+  top: 10px;
+}
+#status.opponents_move {
+  background: top left no-repeat url("../images/opponents_move.png");
+  background-size: 100%;
+  position: absolute;
+  height: 108px;
+  width: 369px;
+  opacity: 0.70;
+}
+
 img.vertical-aligner {
   vertical-align: middle;
   height: 100%;
@@ -1110,4 +1136,20 @@ img.piece {
   left: 67px;
   width: 256px;
   height: 70px;
+}
+
+#gameover_banner {
+  position: absolute;
+  width: 214px;
+  height: 426px;
+  left: 130px;
+  top: 21px;
+}
+#gameover_banner.state {
+  background: top left no-repeat url('../images/gameover_banner_state.jpg');
+  background-size: 100%;
+}
+#gameover_banner.insurgent {
+  background: top left no-repeat url('../images/gameover_banner_insurgent.jpg');
+  background-size: 100%;
 }

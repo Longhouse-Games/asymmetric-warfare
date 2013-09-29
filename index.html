@@ -32,8 +32,7 @@
     </script>
     <script id="status" type="text/html">
       <div class="dashboard_section">
-        <img src="images/transparent_pixel.gif" class="vertical-aligner">
-        <span id="status">{{text}}</span>
+        <div id="status" class="{{class}}"><div id="setup"><img src="images/transparent_pixel.gif" class="vertical-aligner"><span>SETUP: PLACE INSURGENTS</span></div></div>
       </div>
     </script>
     <script id="piecemarker" type="text/html">
@@ -48,6 +47,9 @@
     </script>
     <script id="ghost" type="text/html">
       <img src="images/piece_insurgent_ghost.png" class="piece ghost"/>
+    </script>
+    <script id="gameover" type="text/html">
+      <div id="gameover_banner" class="{{winner}}"></div>
     </script>
   </head>
   <body>
