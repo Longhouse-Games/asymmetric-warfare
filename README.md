@@ -1,12 +1,14 @@
 Dependencies
 ------------
 
+Mongo: `brew install mongo`
 Install dependencies: `npm install`
 
 Running the Server
 ------------------
 
-node app.js
+Run mongo: `mongod -f /usr/local/etc/mongod.conf`
+`node app.js`
 
 Deployment
 ----------
