@@ -1,0 +1,15 @@
+#marker0-1 {
+  margin-left: -20px;
+}
+#marker0-2 {
+  margin-left: -35px;
+}
+.rotate1 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.8660254037844387, M12=-0.49999999999999994, M21=0.49999999999999994, M22=0.8660254037844387, SizingMethod='auto expand')";
+  border: 2px solid white;
+}
+
+.rotate2 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.5000000000000001, M12=-0.8660254037844386, M21=0.8660254037844386, M22=0.5000000000000001, SizingMethod='auto expand')";
+  border: 2px solid white;
+}
