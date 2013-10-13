@@ -4,12 +4,239 @@
 #marker0-2 {
   margin-left: -35px;
 }
-.rotate1 {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.8660254037844387, M12=-0.49999999999999994, M21=0.49999999999999994, M22=0.8660254037844387, SizingMethod='auto expand')";
-  border: 2px solid white;
+#marker0-3 {
+  margin-left: -40px;
+}
+#marker0-4 {
+  margin-left: -90px;
+  margin-top: -20px;
+}
+#marker0-5 {
+  margin-left: -115px;
+  margin-top: -35px;
+}
+#marker0-6 {
+  margin-left: -110px;
+  margin-top: -40px;
+}
+#marker0-7 {
+  margin-left: -100px;
+  margin-top: -90px;
+}
+#marker0-8 {
+  margin-left: -55px;
+  margin-top: -110px;
+}
+#marker0-9 {
+  margin-top: -110px;
+}
+#marker0-10 {
+  margin-top: -95px;
+}
+#marker0-11 {
+  margin-top: -60px;
+  margin-left: 0px;
+}
+#marker1-0 {
+  margin-left: -10px;
+}
+#marker1-1 {
+  margin-left: -30px;
+}
+#marker1-2 {
+  margin-left: -45px;
+}
+#marker1-3 {
+  margin-left: -60px;
+  margin-top: -5px;
+}
+#marker1-4 {
+  margin-left: -85px;
+  margin-top: -30px;
+}
+#marker1-5 {
+  margin-left: -85px;
+  margin-top: -40px;
+}
+#marker1-6 {
+  margin-left: -80px;
+  margin-top: -55px;
+}
+#marker1-7 {
+  margin-left: -60px;
+  margin-top: -80px;
+}
+#marker1-8 {
+  margin-left: -25px;
+  margin-top: -85px;
+}
+#marker1-9 {
+  margin-left: -5px;
+  margin-top: -80px;
+}
+#marker1-10 {
+  margin-top: -60px;
+}
+#marker1-11 {
+  margin-top: -20px;
+}
+#marker2-0 {
+  margin-left: -25px;
+}
+#marker2-1 {
+  margin-left: -45px;
+}
+#marker2-2 {
+  margin-left: -55px;
+}
+#marker2-3 {
+  margin-left: -65px;
+  margin-top: -20px;
+}
+#marker2-4 {
+  margin-left: -60px;
+  margin-top: -45px;
+}
+#marker2-5 {
+  margin-left: -45px;
+  margin-top: -50px;
+}
+#marker2-6 {
+  margin-left: -40px;
+  margin-top: -65px;
+}
+#marker2-7 {
+  margin-left: -23px;
+  margin-top: -63px;
+}
+#marker2-8 {
+  margin-top: -45px;
+}
+#marker2-9 {
+  margin-top: -40px;
+}
+#marker2-10 {
+  margin-top: -20px;
+}
+#marker2-11 {
+}
+#marker3-0 {
+  margin-left: -20px;
+}
+#marker3-1 {
+  margin-left: -30px;
+}
+#marker3-2 {
+  margin-left: -38px;
+  margin-top: -8px;
+}
+#marker3-3 {
+  margin-left: -40px;
+  margin-top: -20px;
+}
+#marker3-4 {
+  margin-left: -32px;
+  margin-top: -28px;
+}
+#marker3-5 {
+  margin-left: -24px;
+  margin-top: -34px;
+}
+#marker3-6 {
+  margin-left: -19px;
+  margin-top: -38px;
+}
+#marker3-7 {
+  margin-left: -8px;
+  margin-top: -30px;
+}
+#marker3-8 {
+  margin-top: -22px;
+}
+#marker3-9 {
+  margin-top: -17px;
+}
+#marker3-10 {
+  margin-top: -8px;
+}
+#marker3-11 {
+  margin-left: -8px;
 }
 
+#marker4-0 {
+  position: absolute;
+  left: 277px;
+  top: 288px;
+  width: 52px;
+  height: 34px;
+}
+
+.rotate1 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.8660254037844387, M12=-0.49999999999999994, M21=0.49999999999999994, M22=0.8660254037844387, SizingMethod='auto expand')";
+}
 .rotate2 {
   -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.5000000000000001, M12=-0.8660254037844386, M21=0.8660254037844386, M22=0.5000000000000001, SizingMethod='auto expand')";
-  border: 2px solid white;
+}
+.rotate3 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=6.123031769111886e-17, M12=-1, M21=1, M22=6.123031769111886e-17, SizingMethod='auto expand')";
+}
+.rotate4 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=-0.4999999999999998, M12=-0.8660254037844387, M21=0.8660254037844387, M22=-0.4999999999999998, SizingMethod='auto expand')";
+}
+.rotate5 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=-0.8660254037844385, M12=-0.5000000000000003, M21=0.5000000000000003, M22=-0.8660254037844385, SizingMethod='auto expand')";
+}
+.rotate6 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=-1, M12=-1.2246063538223773e-16, M21=1.2246063538223773e-16, M22=-1, SizingMethod='auto expand')";
+}
+.rotate7 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=-0.8660254037844388, M12=0.4999999999999997, M21=-0.4999999999999997, M22=-0.8660254037844388, SizingMethod='auto expand')";
+}
+.rotate8 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=-0.5000000000000004, M12=0.8660254037844384, M21=-0.8660254037844384, M22=-0.5000000000000004, SizingMethod='auto expand')";
+}
+.rotate9 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=-1.836909530733566e-16, M12=1, M21=-1, M22=-1.836909530733566e-16, SizingMethod='auto expand')";
+}
+.rotate10 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.49999999999999933, M12=0.866025403784439, M21=-0.866025403784439, M22=0.49999999999999933, SizingMethod='auto expand')";
+}
+.rotate11 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.8660254037844384, M12=0.5000000000000004, M21=-0.5000000000000004, M22=0.8660254037844384, SizingMethod='auto expand')";
+}
+.rotate0-5 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.9659258262890683, M12=-0.25881904510252074, M21=0.25881904510252074, M22=0.9659258262890683, SizingMethod='auto expand')";
+}
+.rotate1-5 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.7071067811865476, M12=-0.7071067811865475, M21=0.7071067811865475, M22=0.7071067811865476, SizingMethod='auto expand')";
+}
+.rotate2-5 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.25881904510252096, M12=-0.9659258262890682, M21=0.9659258262890682, M22=0.25881904510252096, SizingMethod='auto expand')";
+}
+.rotate3-5 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=-0.25881904510252063, M12=-0.9659258262890683, M21=0.9659258262890683, M22=-0.25881904510252063, SizingMethod='auto expand')";
+}
+.rotate4-5 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=-0.7071067811865475, M12=-0.7071067811865476, M21=0.7071067811865476, M22=-0.7071067811865475, SizingMethod='auto expand')";
+}
+.rotate5-5 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=-0.9659258262890682, M12=-0.258819045102521, M21=0.258819045102521, M22=-0.9659258262890682, SizingMethod='auto expand')";
+}
+.rotate6-5 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=-0.9659258262890683, M12=0.2588190451025208, M21=-0.2588190451025208, M22=-0.9659258262890683, SizingMethod='auto expand')";
+}
+.rotate7-5 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=-0.7071067811865477, M12=0.7071067811865475, M21=-0.7071067811865475, M22=-0.7071067811865477, SizingMethod='auto expand')";
+}
+.rotate8-5 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=-0.2588190451025215, M12=0.9659258262890681, M21=-0.9659258262890681, M22=-0.2588190451025215, SizingMethod='auto expand')";
+}
+.rotate9-5 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.2588190451025203, M12=0.9659258262890684, M21=-0.9659258262890684, M22=0.2588190451025203, SizingMethod='auto expand')";
+}
+.rotate10-5 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.7071067811865468, M12=0.7071067811865483, M21=-0.7071067811865483, M22=0.7071067811865468, SizingMethod='auto expand')";
+}
+.rotate11-5 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.9659258262890681, M12=0.25881904510252157, M21=-0.25881904510252157, M22=0.9659258262890681, SizingMethod='auto expand')";
 }
