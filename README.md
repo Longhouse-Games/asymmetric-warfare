@@ -22,7 +22,7 @@ PREFIX="/asymmetric-warfare"
 PORT=3000
 ```
 1. `foreman run`
-1. `open http://localhost:3000/asymmetric-warfare/new?guerrillas=foo&coin=bar&fmt=html&dbg=1`
+1. `open http://localhost:3000/asymmetric-warfare/new?state=foo&insurgent=bar&fmt=html&dbg=1`
 
 Liferay Stub
 ------------
