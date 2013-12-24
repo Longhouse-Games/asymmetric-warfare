@@ -95,7 +95,7 @@ body.state #table_area {
   top: 10px;
 }
 #status.opponents_move {
-  background: top left no-repeat url("../images/opponents_move.png");
+  background: top left no-repeat url("../images/opponents_move.gif");
   background-size: 100%;
   position: absolute;
   height: 108px;

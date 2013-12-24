@@ -24,6 +24,32 @@
   background: none;
   filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='images/history_log_ie.gif', sizingMethod='scale');
 }
+body.insurgent #logo {
+  background: none;
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='images/logo_insurgent.png', sizingMethod='scale');
+}
+body.state #logo {
+  background: none;
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='images/logo_state_ie.gif');
+}
+#killed_insurgents {
+  background: none;
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='images/insurgents_killed.png');
+  margin-top: 10px;
+  margin-left: 3px;
+}
+#killed_insurgents #count {
+  top: 31px;
+}
+#reserve_insurgents {
+  background: none;
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='images/insurgents_available.png');
+  margin-top: 10px;
+  margin-left: 3px;
+}
+#reserve_insurgents #count {
+  top: 32px;
+}
 
 #marker0-1 {
   margin-left: -20px;
